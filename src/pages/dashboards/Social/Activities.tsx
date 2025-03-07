@@ -5,12 +5,6 @@ import { Button, Card, Dropdown, Row, Col } from "react-bootstrap";
 import { MoreHorizontal } from "lucide-react";
 
 import avatar1 from "../../../assets/img/avatars/avatar.jpg";
-import avatar2 from "../../../assets/img/avatars/avatar-2.jpg";
-import avatar4 from "../../../assets/img/avatars/avatar-4.jpg";
-import avatar5 from "../../../assets/img/avatars/avatar-5.jpg";
-
-import unsplash1 from "../../../assets/img/photos/unsplash-1.jpg";
-import unsplash2 from "../../../assets/img/photos/unsplash-2.jpg";
 
 const Activities = () => (
   <Card className="flex-fill mb-3">
@@ -32,7 +26,7 @@ const Activities = () => (
     <Card.Body>
       <div className="d-flex">
         <img
-          src={avatar5}
+          src={avatar1}
           width="36"
           height="36"
           className="rounded-circle me-2"
@@ -49,31 +43,11 @@ const Activities = () => (
       </div>
 
       <hr />
-      <div className="d-flex">
-        <img
-          src={avatar1}
-          width="36"
-          height="36"
-          className="rounded-circle me-2"
-          alt="Chris Wood"
-        />
-        <div className="flex-grow-1 ms-3">
-          <small className="float-end text-navy">30m ago</small>
-          <strong>Chris Wood</strong> posted something on{" "}
-          <strong>Stacie Hall</strong>'s timeline
-          <br />
-          <small className="text-muted">Today 7:21 pm</small>
-          <div className="border text-sm text-muted p-2 mt-1">
-            Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem
-            quam..
-          </div>
-        </div>
-      </div>
 
       <hr />
       <div className="d-flex">
         <img
-          src={avatar4}
+          src={avatar1}
           width="36"
           height="36"
           className="rounded-circle me-2"
@@ -88,47 +62,6 @@ const Activities = () => (
       </div>
 
       <hr />
-      <div className="d-flex">
-        <img
-          src={avatar2}
-          width="36"
-          height="36"
-          className="rounded-circle me-2"
-          alt="Carl Jenkins"
-        />
-        <div className="flex-grow-1 ms-3">
-          <small className="float-end text-navy">3h ago</small>
-          <strong>Carl Jenkins</strong> posted two photos on{" "}
-          <strong>Stacie Hall</strong>'s timeline
-          <br />
-          <small className="text-muted">Today 5:12 pm</small>
-          <Row className="g-0 mt-1">
-            <Col xs={6} md={4} lg={4} xl={3}>
-              <img src={unsplash1} className="img-fluid pe-2" alt="Unsplash" />
-            </Col>
-            <Col xs={6} md={4} lg={4} xl={3}>
-              <img src={unsplash2} className="img-fluid pe-2" alt="Unsplash" />
-            </Col>
-          </Row>
-        </div>
-      </div>
-
-      <hr />
-      <div className="d-flex">
-        <img
-          src={avatar4}
-          width="36"
-          height="36"
-          className="rounded-circle me-2"
-          alt="Stacie Hall"
-        />
-        <div className="flex-grow-1 ms-3">
-          <small className="float-end text-navy">1d ago</small>
-          <strong>Stacie Hall</strong> posted a new blog
-          <br />
-          <small className="text-muted">Yesterday 2:43 pm</small>
-        </div>
-      </div>
 
       <hr />
       <div className="d-flex">

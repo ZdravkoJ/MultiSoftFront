@@ -17,9 +17,6 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 import avatar1 from "../../assets/img/avatars/avatar.jpg";
-import avatar2 from "../../assets/img/avatars/avatar-2.jpg";
-import avatar4 from "../../assets/img/avatars/avatar-4.jpg";
-import avatar5 from "../../assets/img/avatars/avatar-5.jpg";
 
 import unsplash1 from "../../assets/img/photos/unsplash-1.jpg";
 import unsplash2 from "../../assets/img/photos/unsplash-2.jpg";
@@ -31,7 +28,7 @@ const ProfileDetails = () => (
     </Card.Header>
     <Card.Body className="text-center">
       <img
-        src={avatar4}
+        src={avatar1}
         alt="Stacie Hall"
         className="img-fluid rounded-circle mb-2"
         width="128"
@@ -140,7 +137,7 @@ const Activities = () => (
     <Card.Body>
       <div className="d-flex">
         <img
-          src={avatar5}
+          src={avatar1}
           width="36"
           height="36"
           className="rounded-circle me-2"
@@ -187,7 +184,7 @@ const Activities = () => (
       <hr />
       <div className="d-flex">
         <img
-          src={avatar4}
+          src={avatar1}
           width="36"
           height="36"
           className="rounded-circle me-2"
@@ -204,7 +201,7 @@ const Activities = () => (
       <hr />
       <div className="d-flex">
         <img
-          src={avatar2}
+          src={avatar1}
           width="36"
           height="36"
           className="rounded-circle me-2"
@@ -233,7 +230,7 @@ const Activities = () => (
       <hr />
       <div className="d-flex">
         <img
-          src={avatar2}
+          src={avatar1}
           width="36"
           height="36"
           className="rounded-circle me-2"
@@ -247,7 +244,7 @@ const Activities = () => (
           <small className="text-muted">Yesterday 3:12 pm</small>
           <div className="d-flex mt-1">
             <img
-              src={avatar4}
+              src={avatar1}
               width="36"
               height="36"
               className="rounded-circle me-2"
@@ -266,7 +263,7 @@ const Activities = () => (
       <hr />
       <div className="d-flex">
         <img
-          src={avatar4}
+          src={avatar1}
           width="36"
           height="36"
           className="rounded-circle me-2"

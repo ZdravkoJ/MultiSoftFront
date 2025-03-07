@@ -10,9 +10,8 @@ import {
   Card,
 } from "react-bootstrap";
 
-import avatar2 from "../../assets/img/avatars/avatar-2.jpg";
-import avatar3 from "../../assets/img/avatars/avatar-3.jpg";
-import avatar5 from "../../assets/img/avatars/avatar-5.jpg";
+import avatar1 from "../../assets/img/avatars/avatar.jpg";
+
 import { Plus } from "lucide-react";
 
 interface Task {
@@ -30,28 +29,10 @@ const todoTasks: Task[] = [
     id: 1,
     name: "Improve email marketing strategy",
     assignedToName: "Ashley Briggs",
-    assignedToAvatar: avatar5,
+    assignedToAvatar: avatar1,
     dueDate: "August 1, 2023",
     priority: "Medium",
     priorityVariant: "warning",
-  },
-  {
-    id: 2,
-    name: "Develop new product video",
-    assignedToName: "Carl Jenkins",
-    assignedToAvatar: avatar2,
-    dueDate: "July 15, 2023",
-    priority: "High",
-    priorityVariant: "danger",
-  },
-  {
-    id: 3,
-    name: "Conduct user interviews for new feature",
-    assignedToName: "Bertha Martin",
-    assignedToAvatar: avatar3,
-    dueDate: "June 20, 2023",
-    priority: "Low",
-    priorityVariant: "success",
   },
 ];
 
@@ -60,26 +41,8 @@ const inProgressTasks: Task[] = [
     id: 1,
     name: "Implement new analytics tracking",
     assignedToName: "Carl Jenkins",
-    assignedToAvatar: avatar2,
+    assignedToAvatar: avatar1,
     dueDate: "July 1, 2023",
-    priority: "Low",
-    priorityVariant: "success",
-  },
-  {
-    id: 2,
-    name: "Design new marketing campaign",
-    assignedToName: "Bertha Martin",
-    assignedToAvatar: avatar3,
-    dueDate: "August 15, 2023",
-    priority: "High",
-    priorityVariant: "danger",
-  },
-  {
-    id: 3,
-    name: "Conduct A/B testing on landing page",
-    assignedToName: "Ashley Briggs",
-    assignedToAvatar: avatar5,
-    dueDate: "June 30, 2023",
     priority: "Low",
     priorityVariant: "success",
   },
@@ -90,26 +53,8 @@ const completedTasks: Task[] = [
     id: 1,
     name: "Optimize website performance",
     assignedToName: "Bertha Martin",
-    assignedToAvatar: avatar3,
+    assignedToAvatar: avatar1,
     dueDate: "June 15, 2023",
-    priority: "Low",
-    priorityVariant: "success",
-  },
-  {
-    id: 2,
-    name: "Develop mobile app prototype",
-    assignedToName: "Ashley Briggs",
-    assignedToAvatar: avatar5,
-    dueDate: "August 10, 2023",
-    priority: "Medium",
-    priorityVariant: "warning",
-  },
-  {
-    id: 3,
-    name: "Conduct user research interviews",
-    assignedToName: "Ashley Briggs",
-    assignedToAvatar: avatar5,
-    dueDate: "July 20, 2023",
     priority: "Low",
     priorityVariant: "success",
   },

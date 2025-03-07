@@ -22,7 +22,7 @@ export type JWTContextType = {
   isInitialized: boolean;
   user: AuthUser;
   method: "jwt";
-  signIn: (email: string, password: string) => Promise<void>;
+  signIn: (username: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   signUp: (
     email: string,
@@ -30,50 +30,5 @@ export type JWTContextType = {
     firstName: string,
     lastName: string
   ) => Promise<void>;
-  resetPassword: (email: string) => void;
-};
-
-export type FirebaseAuthContextType = {
-  isAuthenticated: boolean;
-  isInitialized: boolean;
-  user: AuthUser;
-  method: "firebase";
-  signIn: (email: string, password: string) => Promise<any>;
-  signUp: (
-    email: string,
-    password: string,
-    firstName: string,
-    lastName: string
-  ) => Promise<void>;
-  signInWithGoogle: () => Promise<any>;
-  signInWithFaceBook: () => Promise<any>;
-  signInWithTwitter: () => Promise<any>;
-  signOut: () => Promise<void>;
-  resetPassword: (email: string) => Promise<void>;
-};
-
-export type Auth0ContextType = {
-  isAuthenticated: boolean;
-  isInitialized: boolean;
-  user: AuthUser;
-  method: "auth0";
-  signIn: () => Promise<void>;
-  signOut: VoidFunction;
-  resetPassword: (email: string) => void;
-};
-
-export type CognitoContextType = {
-  isAuthenticated: boolean;
-  isInitialized: boolean;
-  user: AuthUser;
-  method: "cognito";
-  signIn: (email: string, password: string) => Promise<unknown>;
-  signUp: (
-    email: string,
-    password: string,
-    firstName: string,
-    lastName: string
-  ) => Promise<unknown>;
-  signOut: VoidFunction;
   resetPassword: (email: string) => void;
 };

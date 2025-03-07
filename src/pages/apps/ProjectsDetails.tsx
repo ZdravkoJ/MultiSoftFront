@@ -6,10 +6,6 @@ import { Bar } from "react-chartjs-2";
 import usePalette from "../../hooks/usePalette";
 
 import avatar1 from "../../assets/img/avatars/avatar.jpg";
-import avatar2 from "../../assets/img/avatars/avatar-2.jpg";
-import avatar3 from "../../assets/img/avatars/avatar-3.jpg";
-import avatar4 from "../../assets/img/avatars/avatar-4.jpg";
-import avatar5 from "../../assets/img/avatars/avatar-5.jpg";
 
 const Statistics = () => {
   return (
@@ -136,20 +132,6 @@ const Description = () => {
         <div>
           <h5>Assignee</h5>
           <img
-            src={avatar3}
-            className="rounded-circle me-1"
-            alt="Avatar"
-            width="34"
-            height="34"
-          />
-          <img
-            src={avatar2}
-            className="rounded-circle me-1"
-            alt="Avatar"
-            width="34"
-            height="34"
-          />
-          <img
             src={avatar1}
             className="rounded-circle me-1"
             alt="Avatar"
@@ -171,7 +153,7 @@ const Comments = () => {
       <Card.Body>
         <div className="d-flex align-items-start">
           <img
-            src={avatar5}
+            src={avatar1}
             width="56"
             height="56"
             className="rounded-circle me-3"
@@ -193,7 +175,7 @@ const Comments = () => {
             <div className="d-flex align-items-start mt-3">
               <div className="pe-2">
                 <img
-                  src={avatar4}
+                  src={avatar1}
                   width="36"
                   height="36"
                   className="rounded-circle me-2"
@@ -237,7 +219,7 @@ const Comments = () => {
         <hr />
         <div className="d-flex align-items-start">
           <img
-            src={avatar4}
+            src={avatar1}
             width="56"
             height="56"
             className="rounded-circle me-3"
@@ -275,20 +257,6 @@ const Information = () => {
           </Col>
           <Col xs={8} xxl={9}>
             <img
-              src={avatar3}
-              className="rounded-circle me-1 mt-n1"
-              alt="Avatar"
-              width="28"
-              height="28"
-            />
-            <img
-              src={avatar2}
-              className="rounded-circle me-1 mt-n1"
-              alt="Avatar"
-              width="28"
-              height="28"
-            />
-            <img
               src={avatar1}
               className="rounded-circle me-1 mt-n1"
               alt="Avatar"
@@ -304,7 +272,7 @@ const Information = () => {
           </Col>
           <Col xs={8} xxl={9}>
             <img
-              src={avatar4}
+              src={avatar1}
               className="rounded-circle me-1 mt-n1"
               alt="Avatar"
               width="28"

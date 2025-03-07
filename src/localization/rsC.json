@@ -14,5 +14,10 @@
   "EnterPassword": "Унесите лозинку да би наставили даље",
   "Visitors": "Посетиоци",
   "UploadFile": "Учитај фајл",
-  "Jandex": "Шупичку"
+  "Jandex": "Шупичку",
+  "Password": "Лозинка",
+  "Email": "Емаил",
+  "ForgottenPassword": "Заборављена лозинка?",
+  "RememberMe": "Запамти ме",
+  "Username": "Корисничко име"
 }

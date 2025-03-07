@@ -5,9 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 
 import avatar1 from "../../../assets/img/avatars/avatar.jpg";
-import avatar2 from "../../../assets/img/avatars/avatar-2.jpg";
-import avatar4 from "../../../assets/img/avatars/avatar-4.jpg";
-import avatar5 from "../../../assets/img/avatars/avatar-5.jpg";
 
 import unsplash1 from "../../../assets/img/photos/unsplash-1.jpg";
 import unsplash2 from "../../../assets/img/photos/unsplash-2.jpg";
@@ -18,7 +15,7 @@ const Activity = () => (
     <Card.Body>
       <div className="d-flex">
         <img
-          src={avatar5}
+          src={avatar1}
           width="56"
           height="56"
           className="rounded-circle me-3"
@@ -51,26 +48,6 @@ const Activity = () => (
           <Button size="sm" variant="danger" className="mt-1">
             <FontAwesomeIcon icon={faHeart} fixedWidth /> Like
           </Button>
-
-          <div className="d-flex mt-3">
-            <div className="pe-2">
-              <img
-                src={avatar4}
-                width="36"
-                height="36"
-                className="rounded-circle me-2"
-                alt="Stacie Hall"
-              />
-            </div>
-            <div className="flex-grow-1 ms-3">
-              <p className="text-muted">
-                <strong>Stacie Hall</strong>: Nam pretium turpis et arcu. Duis
-                arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis,
-                ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan
-                a, consectetuer eget, posuere ut, mauris.
-              </p>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -104,54 +81,11 @@ const Activity = () => (
       </div>
 
       <hr />
-      <div className="d-flex">
-        <img
-          src={avatar2}
-          width="56"
-          height="56"
-          className="rounded-circle me-3"
-          alt="Carl Jenkins"
-        />
-        <div className="flex-grow-1 ms-3">
-          <small className="float-end text-navy">3h ago</small>
-          <p className="mb-2">
-            <strong>Carl Jenkins</strong>
-          </p>
-
-          <img src={unsplash1} className="img-fluid" alt="Unsplash" />
-
-          <small className="text-muted">Today 5:12 pm</small>
-          <br />
-          <Button size="sm" variant="danger" className="mt-1">
-            <FontAwesomeIcon icon={faHeart} fixedWidth /> Like
-          </Button>
-
-          <div className="d-flex mt-3">
-            <div className="pe-2">
-              <img
-                src={avatar4}
-                width="36"
-                height="36"
-                className="rounded-circle me-2"
-                alt="Stacie Hall"
-              />
-            </div>
-            <div className="flex-grow-1 ms-3">
-              <p className="text-muted">
-                <strong>Stacie Hall</strong>: Nam pretium turpis et arcu. Duis
-                arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis,
-                ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan
-                a, consectetuer eget, posuere ut, mauris.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <hr />
       <div className="d-flex">
         <img
-          src={avatar5}
+          src={avatar1}
           width="56"
           height="56"
           className="rounded-circle me-3"

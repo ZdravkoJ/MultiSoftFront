@@ -14,5 +14,9 @@
   "EnterPassword": "Unesite lozinku da bi nastavili dalje",
   "Visitors": "Posetioci",
   "UploadFile": "Učitaj fajl",
-  "Jandex": "Shupichku"
+  "Jandex": "Shupichku",
+  "Password": "Lozinka",
+  "Email": "Email",
+  "ForgottenPassword": "Zaboravljena lozinka?",
+  "Username": "Korisničko ime"
 }

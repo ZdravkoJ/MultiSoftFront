@@ -148,7 +148,11 @@ const routes = [
   },
   {
     path: "dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <AuthGuard>
+        <DashboardLayout />
+      </AuthGuard>
+    ),
     children: [
       {
         path: "default",

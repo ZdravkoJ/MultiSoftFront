@@ -113,20 +113,34 @@ function AuthProvider({ children }: { children: ReactNode }) {
     initialize();
   }, []);
 
-  const signIn = async (email: string, password: string) => {
-    const response = await axios.post("/api/auth/sign-in", {
-      email,
-      password,
-    });
-    const { accessToken, user } = response.data;
+  const signIn = async (username: string, password: string) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:15510/API/Login/Korisnik/Login2",
+        {
+          username,
+          password,
+        }
+      );
+      const data = response.data;
 
-    setSession(accessToken);
-    dispatch({
-      type: SIGN_IN,
-      payload: {
-        user,
-      },
-    });
+      if (data.Error) {
+        throw new Error(data.Error);
+      }
+      console.log("data", data);
+      const accessToken = data.AccessToken;
+      const { user } = data.user;
+
+      setSession(accessToken);
+      dispatch({
+        type: SIGN_IN,
+        payload: {
+          user,
+        },
+      });
+    } catch (error) {
+      console.log("catchblockerror", error);
+    }
   };
 
   const signOut = async () => {

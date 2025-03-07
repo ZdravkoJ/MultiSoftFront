@@ -14,5 +14,9 @@
   "EnterPasssword": "Enter password to continue",
   "Visitors": "Visitors",
   "UploadFile": "Upload file",
-  "Jandex": "GTFO"
+  "Jandex": "GTFO",
+  "Password": "Password",
+  "Email": "Email",
+  "ForgottenPassword": "Forgotten password?",
+  "Username": "Username"
 }

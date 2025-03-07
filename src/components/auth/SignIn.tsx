@@ -1,188 +1,136 @@
 import React from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import * as Yup from "yup";
+import * as yup from "yup";
 import { Formik } from "formik";
 import { Alert, Button, Form, Row, Col } from "react-bootstrap";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faApple } from "@fortawesome/free-brands-svg-icons";
-
-import brandGoogle from "../../assets/img/brands/google.svg";
-
 import useAuth from "../../hooks/useAuth";
+import { useTranslation } from "react-i18next";
+import { sign } from "jsonwebtoken";
 
 const SignIn = () => {
   const navigate = useNavigate();
   const { signIn } = useAuth();
+  const { t } = useTranslation();
+
+  const [username, setUsername] = useState(""); // "demo@bootlab.io"
+  const [password, setPassword] = useState(""); // "unsafepassword"
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [touched, setIsTouched] = useState(false);
+
+  const validationSchema = yup.object({
+    username: yup
+      .string()
+      .min(3, "Username must be at least 3 characters")
+      .required("Required"),
+    password: yup
+      .string()
+      .min(6, "Must be at least 6 characters")
+      .required("Required"),
+  });
+
+  const handleLoginSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitting(true);
+    setError(null);
+    try {
+      await validationSchema.validate(
+        { username, password },
+        { abortEarly: false }
+      );
+
+      await signIn(username, password);
+      //getme accesstoken localstorage and log it
+      const accessToken = localStorage.getItem("accessToken");
+      console.log("accessToken", accessToken);
+
+      navigate("/dashboard");
+    } catch (error: any) {
+      if (error.name === "ValidationError") {
+        setError(error.errors.join(", "));
+      } else {
+        setError(error.message || "An error occurred");
+      }
+      setSubmitting(false);
+    }
+  };
+
+  //make me handleblur and handlechange for username/password
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    if (name === "username") {
+      setUsername(value);
+    } else if (name === "password") {
+      setPassword(value);
+    }
+  };
+
+  //make me handleblur so it can be used in the form
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    setIsTouched(true);
+  };
 
   return (
-    <Formik
-      initialValues={{
-        email: "demo@bootlab.io",
-        password: "unsafepassword",
-        submit: false,
-      }}
-      validationSchema={Yup.object().shape({
-        email: Yup.string()
-          .email("Must be a valid email")
-          .max(255)
-          .required("Email is required"),
-        password: Yup.string().max(255).required("Password is required"),
-      })}
-      onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-        try {
-          await signIn(values.email, values.password);
+    <React.Fragment>
+      <form onSubmit={handleLoginSubmit}>
+        {error !== null && error !== "" ? (
+          <Alert className="my-3" variant="danger">
+            <div className="alert-message">{error}</div>
+          </Alert>
+        ) : null}
 
-          navigate("/private");
-        } catch (error: any) {
-          const message = error.message || "Something went wrong";
+        <Form.Group className="mb-3">
+          <Form.Label>{t("Username")}</Form.Label>
+          <Form.Control
+            size="lg"
+            type="text"
+            name="username"
+            placeholder="Enter your username"
+            value={username}
+            onBlur={handleBlur}
+            onChange={handleChange}
+          />
+        </Form.Group>
 
-          setStatus({ success: false });
-          setErrors({ submit: message });
-          setSubmitting(false);
-        }
-      }}
-    >
-      {({
-        errors,
-        handleBlur,
-        handleChange,
-        handleSubmit,
-        isSubmitting,
-        touched,
-        values,
-      }) => (
-        <React.Fragment>
-          <div className="d-grid gap-2 mb-3">
-            <Link
-              to="/dashboard/default"
-              className="btn btn-facebook btn-lg position-relative shadow"
-            >
-              <span
-                className="float-start fs-3 position-absolute"
-                style={{ left: 16, top: 2 }}
-              >
-                <FontAwesomeIcon
-                  icon={faFacebook}
-                  fixedWidth
-                  className="fs-3"
-                />
-              </span>
-              Continue with Facebook
-            </Link>
-            <Link
-              to="/dashboard/default"
-              className="btn btn-google btn-lg position-relative shadow"
-            >
-              <span
-                className="float-start fs-3 position-absolute"
-                style={{ left: 16, top: 1 }}
-              >
-                <img src={brandGoogle} height="22" alt="Google" />
-              </span>
-              Continue with Google
-            </Link>
-            <Link
-              to="/dashboard/default"
-              className="btn btn-apple btn-lg position-relative shadow"
-            >
-              <span
-                className="float-start fs-3 position-absolute"
-                style={{ left: 16, top: 2 }}
-              >
-                <FontAwesomeIcon icon={faApple} fixedWidth className="fs-3" />
-              </span>
-              Continue with Apple
-            </Link>
-          </div>
-          <Row>
-            <Col>
-              <hr />
-            </Col>
-            <Col xs="auto" className="text-uppercase d-flex align-items-center">
-              Or
-            </Col>
-            <Col>
-              <hr />
-            </Col>
-          </Row>
-          <Form onSubmit={handleSubmit}>
-            <Alert className="my-3" variant="primary">
-              <div className="alert-message">
-                Use <strong>demo@bootlab.io</strong> and{" "}
-                <strong>unsafepassword</strong> to sign in
-              </div>
-            </Alert>
-            {errors.submit && (
-              <Alert className="my-3" variant="danger">
-                <div className="alert-message">{errors.submit}</div>
-              </Alert>
-            )}
+        <Form.Group className="mb-3">
+          <Form.Label>{t("Password")}</Form.Label>
+          <Form.Control
+            size="lg"
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            value={password}
+            onBlur={handleBlur}
+            onChange={handleChange}
+          />
+          <small>
+            <Link to="/auth/reset-password">Forgot password?</Link>
+          </small>
+        </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                size="lg"
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                value={values.email}
-                isInvalid={Boolean(touched.email && errors.email)}
-                onBlur={handleBlur}
-                onChange={handleChange}
-              />
-              {!!touched.email && (
-                <Form.Control.Feedback type="invalid">
-                  {errors.email}
-                </Form.Control.Feedback>
-              )}
-            </Form.Group>
+        <div>
+          <Form.Check
+            type="checkbox"
+            id="rememberMe"
+            label="Remember me"
+            defaultChecked
+          />
+        </div>
 
-            <Form.Group className="mb-3">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                size="lg"
-                type="password"
-                name="password"
-                placeholder="Enter your password"
-                value={values.password}
-                isInvalid={Boolean(touched.password && errors.password)}
-                onBlur={handleBlur}
-                onChange={handleChange}
-              />
-              {!!touched.password && (
-                <Form.Control.Feedback type="invalid">
-                  {errors.password}
-                </Form.Control.Feedback>
-              )}
-              <small>
-                <Link to="/auth/reset-password">Forgot password?</Link>
-              </small>
-            </Form.Group>
-
-            <div>
-              <Form.Check
-                type="checkbox"
-                id="rememberMe"
-                label="Remember me"
-                defaultChecked
-              />
-            </div>
-
-            <div className="d-grid gap-2 mt-3">
-              <Button
-                type="submit"
-                variant="primary"
-                size="lg"
-                disabled={isSubmitting}
-              >
-                Sign in
-              </Button>
-            </div>
-          </Form>
-        </React.Fragment>
-      )}
-    </Formik>
+        <div className="d-grid gap-2 mt-3">
+          <Button
+            type="submit"
+            variant="primary"
+            size="lg"
+            disabled={submitting}
+          >
+            {t("SignIn")}
+          </Button>
+        </div>
+      </form>
+    </React.Fragment>
   );
 };
 

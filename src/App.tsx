@@ -23,24 +23,26 @@ const App = () => {
   const content = useRoutes(routes);
 
   return (
-    <HelmetProvider>
-      <Helmet
-        titleTemplate="%s | AppStack - React Admin & Dashboard Template"
-        defaultTitle="AppStack - React Admin & Dashboard Template"
-      />
-      <Suspense fallback={<Loader />}>
-        <Provider store={store}>
-          <ThemeProvider>
-            <SidebarProvider>
-              <LayoutProvider>
-                <ChartJsDefaults />
-                <AuthProvider>{content}</AuthProvider>
-              </LayoutProvider>
-            </SidebarProvider>
-          </ThemeProvider>
-        </Provider>
-      </Suspense>
-    </HelmetProvider>
+    <AuthProvider>
+      <HelmetProvider>
+        <Helmet
+          titleTemplate="%s | AppStack - React Admin & Dashboard Template"
+          defaultTitle="AppStack - React Admin & Dashboard Template"
+        />
+        <Suspense fallback={<Loader />}>
+          <Provider store={store}>
+            <ThemeProvider>
+              <SidebarProvider>
+                <LayoutProvider>
+                  <ChartJsDefaults />
+                  <AuthProvider>{content}</AuthProvider>
+                </LayoutProvider>
+              </SidebarProvider>
+            </ThemeProvider>
+          </Provider>
+        </Suspense>
+      </HelmetProvider>
+    </AuthProvider>
   );
 };
 
