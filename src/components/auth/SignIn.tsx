@@ -44,9 +44,7 @@ const SignIn = () => {
       await signIn(username, password);
       //getme accesstoken localstorage and log it
       const accessToken = localStorage.getItem("accessToken");
-      console.log("accessToken", accessToken);
-
-      navigate("/dashboard");
+      navigate("/private");
     } catch (error: any) {
       if (error.name === "ValidationError") {
         setError(error.errors.join(", "));

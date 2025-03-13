@@ -6,11 +6,17 @@ import axios from "../utils/axios";
 import { isValidToken, setSession } from "../utils/jwt";
 
 import AuthContext from "./JWTContext";
+import { useNavigate } from "react-router-dom";
 
 const INITIALIZE = "INITIALIZE";
 const SIGN_IN = "SIGN_IN";
 const SIGN_OUT = "SIGN_OUT";
 const SIGN_UP = "SIGN_UP";
+
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://akord.rs/api"
+    : "http://localhost:5281/api/Auth";
 
 type AuthActionTypes = {
   [INITIALIZE]: {
@@ -70,6 +76,7 @@ const JWTReducer = (
 
 function AuthProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(JWTReducer, initialState);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const initialize = async () => {
@@ -78,8 +85,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
-
-          const response = await axios.get("/api/auth/my-account");
+          console.log("valid token", accessToken);
+          const response = await axios.get(`${API_URL}/MyAcc`); //await axios.get(`${API_URL}/Login/Korisnik/MyAcc`);
           const { user } = response.data;
 
           dispatch({
@@ -115,22 +122,19 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
   const signIn = async (username: string, password: string) => {
     try {
-      const response = await axios.post(
-        "http://localhost:15510/API/Login/Korisnik/Login2",
-        {
-          username,
-          password,
-        }
-      );
+      const response = await axios.post(`${API_URL}/Login`, {
+        username,
+        password,
+      });
       const data = response.data;
 
       if (data.Error) {
         throw new Error(data.Error);
       }
-      console.log("data", data);
-      const accessToken = data.AccessToken;
+      const accessToken = data.accessToken;
       const { user } = data.user;
 
+      console.log("jwtSign", accessToken);
       setSession(accessToken);
       dispatch({
         type: SIGN_IN,
@@ -146,6 +150,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const signOut = async () => {
     setSession(null);
     dispatch({ type: SIGN_OUT });
+    navigate("/");
   };
 
   const signUp = async (

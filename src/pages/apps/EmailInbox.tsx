@@ -31,10 +31,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
-import avatar2 from "../../assets/img/avatars/avatar-2.jpg";
-import avatar3 from "../../assets/img/avatars/avatar-3.jpg";
-import avatar4 from "../../assets/img/avatars/avatar-4.jpg";
-
 interface Email {
   name: string;
   subject: string;
@@ -307,45 +303,6 @@ const Navigation = () => {
         </Nav>
         <div>
           <h6 className="text-uppercase mt-3 mb-3">Chat</h6>
-          <div className="d-flex">
-            <img
-              className="d-flex me-2 rounded-circle"
-              src={avatar4}
-              alt="Stacie Hall"
-              width="36"
-              height="36"
-            />
-            <div className="flex-grow-1">
-              <h6 className="m-0">Stacie Hall</h6>
-              <p className="text-muted text-sm">How are you?</p>
-            </div>
-          </div>
-          <div className="d-flex">
-            <img
-              className="d-flex me-2 rounded-circle"
-              src={avatar2}
-              alt="Carl Jenkins"
-              width="36"
-              height="36"
-            />
-            <div className="flex-grow-1">
-              <h6 className="m-0">Carl Jenkins</h6>
-              <p className="text-muted text-sm">Can we reschedule?</p>
-            </div>
-          </div>
-          <div className="d-flex">
-            <img
-              className="d-flex me-2 rounded-circle"
-              src={avatar3}
-              alt="Bertha Martin"
-              width="36"
-              height="36"
-            />
-            <div className="flex-grow-1">
-              <h6 className="m-0">Bertha Martin</h6>
-              <p className="text-muted text-sm">Great job!</p>
-            </div>
-          </div>
         </div>
       </Card.Body>
     </Card>

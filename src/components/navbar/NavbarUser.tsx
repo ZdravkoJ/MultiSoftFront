@@ -4,9 +4,17 @@ import { PieChart, Settings, User } from "lucide-react";
 
 import avatar1 from "../../assets/img/avatars/avatar.jpg";
 import { useTranslation } from "react-i18next";
+import useAuth from "../../hooks/useAuth";
 
 const NavbarUser = () => {
   const { t } = useTranslation();
+
+  const { signOut } = useAuth();
+
+  const handleLogoutSubmit = async () => {
+    await signOut();
+  };
+
   return (
     <Dropdown className="nav-item" align="end">
       <span className="d-inline-block d-sm-none">
@@ -38,7 +46,9 @@ const NavbarUser = () => {
         <Dropdown.Divider />
         <Dropdown.Item>Settings & Privacy</Dropdown.Item>
         <Dropdown.Item>{t("Help")}</Dropdown.Item>
-        <Dropdown.Item>{t("SignOut")}</Dropdown.Item>
+        <Dropdown.Item onClick={handleLogoutSubmit}>
+          {t("SignOut")}
+        </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );

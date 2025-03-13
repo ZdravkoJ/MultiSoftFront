@@ -16,7 +16,6 @@ export type AuthState = {
   isInitialized: boolean;
   user: AuthUser;
 };
-
 export type JWTContextType = {
   isAuthenticated: boolean;
   isInitialized: boolean;

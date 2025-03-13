@@ -18,5 +18,6 @@
   "Password": "Password",
   "Email": "Email",
   "ForgottenPassword": "Forgotten password?",
-  "Username": "Username"
+  "Username": "Username",
+  "Transactions": "Transactions"
 }

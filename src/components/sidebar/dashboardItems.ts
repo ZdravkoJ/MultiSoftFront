@@ -25,7 +25,7 @@ const navigationSection = [
   {
     href: "/dashboard",
     icon: Sliders,
-    title: "Dashboards",
+    title: "Transactions",
     badge: "5",
     children: [
       {
@@ -53,55 +53,55 @@ const navigationSection = [
 ] as unknown as SidebarItemsType[];
 
 const appsSection = [
-  {
-    href: "/ecommerce",
-    icon: ShoppingBag,
-    title: "E-Commerce",
-    children: [
-      {
-        href: "/ecommerce/products",
-        title: "Products",
-        badge: "New",
-      },
-      {
-        href: "/ecommerce/products-details",
-        title: "Product Details",
-        badge: "New",
-      },
-      {
-        href: "/ecommerce/orders",
-        title: "Orders",
-        badge: "New",
-      },
-      {
-        href: "/ecommerce/customers",
-        title: "Customers",
-      },
-      {
-        href: "/ecommerce/invoice",
-        title: "Invoice",
-      },
-      {
-        href: "/ecommerce/pricing",
-        title: "Pricing",
-      },
-    ],
-  },
-  {
-    href: "/projects",
-    icon: Layout,
-    title: "Projects",
-    children: [
-      {
-        href: "/projects/overview",
-        title: "Overview",
-      },
-      {
-        href: "/projects/details",
-        title: "Details",
-      },
-    ],
-  },
+  // {
+  //   href: "/ecommerce",
+  //   icon: ShoppingBag,
+  //   title: "E-Commerce",
+  //   children: [
+  //     {
+  //       href: "/ecommerce/products",
+  //       title: "Products",
+  //       badge: "New",
+  //     },
+  //     {
+  //       href: "/ecommerce/products-details",
+  //       title: "Product Details",
+  //       badge: "New",
+  //     },
+  //     {
+  //       href: "/ecommerce/orders",
+  //       title: "Orders",
+  //       badge: "New",
+  //     },
+  //     {
+  //       href: "/ecommerce/customers",
+  //       title: "Customers",
+  //     },
+  //     {
+  //       href: "/ecommerce/invoice",
+  //       title: "Invoice",
+  //     },
+  //     {
+  //       href: "/ecommerce/pricing",
+  //       title: "Pricing",
+  //     },
+  //   ],
+  // },
+  // {
+  //   href: "/projects",
+  //   icon: Layout,
+  //   title: "Projects",
+  //   children: [
+  //     {
+  //       href: "/projects/overview",
+  //       title: "Overview",
+  //     },
+  //     {
+  //       href: "/projects/details",
+  //       title: "Details",
+  //     },
+  //   ],
+  // },
   {
     href: "/chat",
     icon: List,
@@ -111,45 +111,44 @@ const appsSection = [
     href: "/file-manager",
     icon: Files,
     title: "File Manager",
-    badge: "New",
   },
   {
     href: "/calendar",
     icon: Calendar,
     title: "Calendar",
   },
-  {
-    href: "/email",
-    icon: Mail,
-    title: "Email",
-    badge: "New",
-    children: [
-      {
-        href: "/email/inbox",
-        title: "Inbox",
-      },
-      {
-        href: "/email/details",
-        title: "Details",
-      },
-    ],
-  },
-  {
-    href: "/tasks",
-    icon: Trello,
-    title: "Tasks",
-    children: [
-      {
-        href: "/tasks/list",
-        title: "List",
-        badge: "New",
-      },
-      {
-        href: "/tasks/kanban",
-        title: "Kanban",
-      },
-    ],
-  },
+  // {
+  //   href: "/email",
+  //   icon: Mail,
+  //   title: "Email",
+  //   badge: "New",
+  //   children: [
+  //     {
+  //       href: "/email/inbox",
+  //       title: "Inbox",
+  //     },
+  //     {
+  //       href: "/email/details",
+  //       title: "Details",
+  //     },
+  //   ],
+  // },
+  // {
+  //   href: "/tasks",
+  //   icon: Trello,
+  //   title: "Tasks",
+  //   children: [
+  //     {
+  //       href: "/tasks/list",
+  //       title: "List",
+  //       badge: "New",
+  //     },
+  //     {
+  //       href: "/tasks/kanban",
+  //       title: "Kanban",
+  //     },
+  //   ],
+  // },
 ] as unknown as SidebarItemsType[];
 
 const pagesSection = [
@@ -479,18 +478,18 @@ const navItems = [
     title: "Apps",
     pages: appsSection,
   },
-  {
-    title: "Pages",
-    pages: pagesSection,
-  },
-  {
-    title: "Tools & Components",
-    pages: componentsSection,
-  },
-  {
-    title: "Plugins & Addons",
-    pages: pluginsSection,
-  },
+  // {
+  //   title: "Pages",
+  //   pages: pagesSection,
+  // },
+  // {
+  //   title: "Tools & Components",
+  //   pages: componentsSection,
+  // },
+  // {
+  //   title: "Plugins & Addons",
+  //   pages: pluginsSection,
+  // },
 ];
 
 export default navItems;

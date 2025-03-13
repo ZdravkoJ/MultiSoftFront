@@ -153,28 +153,7 @@ const routes = [
         <DashboardLayout />
       </AuthGuard>
     ),
-    children: [
-      {
-        path: "default",
-        element: <Default />,
-      },
-      {
-        path: "analytics",
-        element: <Analytics />,
-      },
-      {
-        path: "saas",
-        element: <SaaS />,
-      },
-      {
-        path: "social",
-        element: <Social />,
-      },
-      {
-        path: "crypto",
-        element: <Crypto />,
-      },
-    ],
+    children: [],
   },
   {
     path: "ecommerce",
@@ -247,20 +226,6 @@ const routes = [
       {
         path: "",
         element: <Calendar />,
-      },
-    ],
-  },
-  {
-    path: "email",
-    element: <DashboardLayout />,
-    children: [
-      {
-        path: "inbox",
-        element: <EmailInbox />,
-      },
-      {
-        path: "details",
-        element: <EmailDetails />,
       },
     ],
   },

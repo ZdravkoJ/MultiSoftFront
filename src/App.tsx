@@ -35,7 +35,7 @@ const App = () => {
               <SidebarProvider>
                 <LayoutProvider>
                   <ChartJsDefaults />
-                  <AuthProvider>{content}</AuthProvider>
+                  {content}
                 </LayoutProvider>
               </SidebarProvider>
             </ThemeProvider>

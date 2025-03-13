@@ -18,5 +18,6 @@
   "Password": "Lozinka",
   "Email": "Email",
   "ForgottenPassword": "Zaboravljena lozinka?",
-  "Username": "Korisničko ime"
+  "Username": "Korisničko ime",
+  "Transactions": "Transakcije"
 }
