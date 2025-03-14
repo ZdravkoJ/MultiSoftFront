@@ -10,29 +10,33 @@ import Footer from "../components/Footer";
 import Settings from "../components/Settings";
 import Loader from "../components/Loader";
 
-import dashboardItems from "../components/sidebar/dashboardItems";
+import useDashboardItems from "../../src/components/sidebar/useDashboardItems";
 
 interface DashboardProps {
   children?: ReactNode;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ children }) => (
-  <React.Fragment>
-    <Wrapper>
-      <Sidebar items={dashboardItems} />
-      <Main>
-        <Navbar />
-        <Content>
-          <Suspense fallback={<Loader />}>
-            {children}
-            <Outlet />
-          </Suspense>
-        </Content>
-        <Footer />
-      </Main>
-    </Wrapper>
-    <Settings />
-  </React.Fragment>
-);
+const Dashboard: React.FC<DashboardProps> = ({ children }) => {
+  const items = useDashboardItems();
+
+  return (
+    <React.Fragment>
+      <Wrapper>
+        <Sidebar items={items} />
+        <Main>
+          <Navbar />
+          <Content>
+            <Suspense fallback={<Loader />}>
+              {children}
+              <Outlet />
+            </Suspense>
+          </Content>
+          <Footer />
+        </Main>
+      </Wrapper>
+      <Settings />
+    </React.Fragment>
+  );
+};
 
 export default Dashboard;

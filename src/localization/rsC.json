@@ -20,5 +20,8 @@
   "ForgottenPassword": "Заборављена лозинка?",
   "RememberMe": "Запамти ме",
   "Username": "Корисничко име",
-  "Transactions": "Трансакције"
+  "Transactions": "Трансакције",
+  "Users": "Корисници",
+  "AppSettings": "Подешавања апликације",
+  "Analytics": "Аналитика"
 }

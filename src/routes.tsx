@@ -148,12 +148,25 @@ const routes = [
   },
   {
     path: "dashboard",
-    element: (
-      <AuthGuard>
-        <DashboardLayout />
-      </AuthGuard>
-    ),
-    children: [],
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "default",
+        element: <Default />,
+      },
+      {
+        path: "analytics",
+        element: <Analytics />,
+      },
+      {
+        path: "saas",
+        element: <SaaS />,
+      },
+      {
+        path: "crypto",
+        element: <Crypto />,
+      },
+    ],
   },
   {
     path: "ecommerce",

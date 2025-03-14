@@ -1,4 +1,5 @@
 import { SidebarItemsType } from "../../types/sidebar";
+import { useTranslation } from "react-i18next";
 
 import {
   Bell,
@@ -30,7 +31,7 @@ const navigationSection = [
     children: [
       {
         href: "/dashboard/default",
-        title: "Default",
+        title: "AppSettings",
       },
       {
         href: "/dashboard/analytics",
@@ -39,10 +40,6 @@ const navigationSection = [
       {
         href: "/dashboard/saas",
         title: "SaaS",
-      },
-      {
-        href: "/dashboard/social",
-        title: "Social",
       },
       {
         href: "/dashboard/crypto",

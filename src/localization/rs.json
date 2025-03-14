@@ -19,5 +19,8 @@
   "Email": "Email",
   "ForgottenPassword": "Zaboravljena lozinka?",
   "Username": "Korisničko ime",
-  "Transactions": "Transakcije"
+  "Transactions": "Transakcije",
+  "Users": "Korisnici",
+  "AppSettings": "Postavke aplikacije",
+  "Analytics": "Analitika"
 }

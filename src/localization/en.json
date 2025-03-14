@@ -19,5 +19,8 @@
   "Email": "Email",
   "ForgottenPassword": "Forgotten password?",
   "Username": "Username",
-  "Transactions": "Transactions"
+  "Transactions": "Transactions",
+  "Users": "Users",
+  "AppSettings": "App settings",
+  "Analytics": "Analytics"
 }
