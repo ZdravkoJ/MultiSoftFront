@@ -5,7 +5,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import useSidebar from "../../hooks/useSidebar";
 import SidebarFooter from "./SidebarFooter";
 import SidebarNav from "./SidebarNav";
-import Logo from "../../assets/img/logo.svg?react";
+import Logo from "../../assets/img/logo64x64.svg?react";
 
 import { SidebarItemsType } from "../../types/sidebar";
 

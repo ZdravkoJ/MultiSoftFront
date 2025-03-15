@@ -6,6 +6,7 @@ import FullCalendar from "@fullcalendar/react";
 import bootstrapPlugin from "@fullcalendar/bootstrap";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import { useTranslation } from "react-i18next";
 
 const demoEvents = [
   {
@@ -57,6 +58,10 @@ const demoEvents = [
 ];
 
 const Calendar = () => {
+  const { t } = useTranslation();
+
+  const calendarNavigation: string = t("CalendarLeftNav");
+
   return (
     <React.Fragment>
       <Helmet title="Calendar" />
@@ -65,11 +70,8 @@ const Calendar = () => {
 
         <Card>
           <Card.Header>
-            <Card.Title>FullCalendar</Card.Title>
-            <h6 className="card-subtitle text-muted">
-              Open source JavaScript plugin for a full-sized, drag & drop event
-              calendar.
-            </h6>
+            <Card.Title>{t("Calendar")}</Card.Title>
+            <h6 className="card-subtitle text-muted"></h6>
           </Card.Header>
           <Card.Body>
             <FullCalendar
@@ -78,7 +80,7 @@ const Calendar = () => {
               initialView="dayGridMonth"
               initialDate="2024-07-07"
               headerToolbar={{
-                left: "prev,next today",
+                left: calendarNavigation,
                 center: "title",
                 right: "dayGridMonth,timeGridWeek,timeGridDay",
               }}

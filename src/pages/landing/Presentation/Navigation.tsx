@@ -2,7 +2,7 @@ import React from "react";
 
 import { Badge, Button, Container, Nav, Navbar } from "react-bootstrap";
 
-import Logo from "../../../assets/img/logo.svg?react";
+import Logo from "../../../assets/img/logo64x64.svg?react";
 
 const Navigation = () => (
   <Navbar expand="md" className="landing-navbar">

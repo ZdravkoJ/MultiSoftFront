@@ -4,20 +4,23 @@ const SidebarFooter = () => {
   return (
     <div className="sidebar-cta">
       <div className="sidebar-cta-content">
-        <strong className="d-inline-block mb-2">Monthly Sales Report</strong>
+        <strong className="d-inline-block mb-2">
+          {" "}
+          SidebarFOoter compoenents/sidebarfooter
+        </strong>
         <div className="mb-3 text-sm">
-          Your monthly sales report is ready for download!
+          SidebarFOoter compoenents/sidebarfooter
         </div>
 
         <div className="d-grid">
-          <a
-            href="https://themes.getbootstrap.com/product/appstack-react-admin-dashboard-template/"
+          {/* <a
+            href=""
             className="btn btn-primary"
             target="_blank"
             rel="noreferrer"
           >
             Download
-          </a>
+          </a> */}
         </div>
       </div>
     </div>

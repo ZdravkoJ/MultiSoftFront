@@ -22,5 +22,7 @@
   "Transactions": "Transactions",
   "Users": "Users",
   "AppSettings": "App settings",
-  "Analytics": "Analytics"
+  "Analytics": "Analytics",
+  "Calendar": "Calendar",
+  "CalendarLeftNav": "prev,next today"
 }

@@ -22,5 +22,7 @@
   "Transactions": "Transakcije",
   "Users": "Korisnici",
   "AppSettings": "Postavke aplikacije",
-  "Analytics": "Analitika"
+  "Analytics": "Analitika",
+  "Calendar": "Kalendar",
+  "CalendarLeftNav": "prethodni ,sledeci danas"
 }

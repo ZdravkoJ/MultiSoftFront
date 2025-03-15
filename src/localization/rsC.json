@@ -23,5 +23,7 @@
   "Transactions": "Трансакције",
   "Users": "Корисници",
   "AppSettings": "Подешавања апликације",
-  "Analytics": "Аналитика"
+  "Analytics": "Аналитика",
+  "Calendar": "Календар",
+  "CalendarLeftNav": "претходни, следећи данас"
 }
