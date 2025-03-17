@@ -25,5 +25,6 @@
   "AppSettings": "Подешавања апликације",
   "Analytics": "Аналитика",
   "Calendar": "Календар",
-  "CalendarLeftNav": "претходни, следећи данас"
+  "CalendarLeftNav": "претходни, следећи данас",
+  "FileManager": "Менаџер ДМС"
 }

@@ -68,7 +68,7 @@ const useDashboardItems = (): {
     {
       href: "/file-manager",
       icon: Files,
-      title: t("File Manager"),
+      title: t("FileManager"),
     },
     {
       href: "/calendar",

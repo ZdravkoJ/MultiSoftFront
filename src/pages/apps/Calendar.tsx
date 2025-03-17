@@ -3,64 +3,54 @@ import { Card, Container } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
 
 import FullCalendar from "@fullcalendar/react";
+import srLocale from "@fullcalendar/core/locales/sr";
 import bootstrapPlugin from "@fullcalendar/bootstrap";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useTranslation } from "react-i18next";
-
-const demoEvents = [
-  {
-    title: "All Day Event",
-    start: "2024-07-01",
-  },
-  {
-    title: "Long Event",
-    start: "2024-07-07",
-    end: "2024-07-10",
-  },
-  {
-    groupId: "999",
-    title: "Repeating Event",
-    start: "2024-07-09T16:00:00",
-  },
-  {
-    groupId: "999",
-    title: "Repeating Event",
-    start: "2024-07-16T16:00:00",
-  },
-  {
-    title: "Conference",
-    start: "2024-07-11",
-    end: "2024-07-13",
-  },
-  {
-    title: "Meeting",
-    start: "2024-07-12T10:30:00",
-    end: "2024-07-12T12:30:00",
-  },
-  {
-    title: "Lunch",
-    start: "2024-07-12T12:00:00",
-  },
-  {
-    title: "Meeting",
-    start: "2024-07-12T14:30:00",
-  },
-  {
-    title: "Birthday Party",
-    start: "2024-07-13T07:00:00",
-  },
-  {
-    title: "Click for Google",
-    url: "http://google.com/",
-    start: "2024-07-28",
-  },
-];
+import { format } from "date-fns";
 
 const Calendar = () => {
   const { t } = useTranslation();
 
-  const calendarNavigation: string = t("CalendarLeftNav");
+  const currentDate = new Date();
+  const formattedDate = format(currentDate, "yyyy-MM-dd");
+  // const testing = (info: EventClickArg) => {
+  //   console.log("testing, info: ", info.value);
+  // };
+
+  const demoEvents = [
+    {
+      title: "All Day Event",
+      start: formattedDate,
+      url: "https://www.google.com",
+    },
+    {
+      title: "Long Event",
+      start: formattedDate,
+      end: formattedDate,
+    },
+    {
+      groupId: "999",
+      title: "Repeating Event",
+      start: formattedDate,
+    },
+    {
+      groupId: "999",
+      title: "Repeating Event",
+      start: formattedDate,
+    },
+    {
+      title: "Conference",
+      start: formattedDate,
+      end: formattedDate,
+    },
+    {
+      title: "Meeting",
+      start: formattedDate,
+      end: formattedDate,
+    },
+  ];
 
   return (
     <React.Fragment>
@@ -75,17 +65,22 @@ const Calendar = () => {
           </Card.Header>
           <Card.Body>
             <FullCalendar
-              plugins={[bootstrapPlugin, dayGridPlugin, timeGridPlugin]}
-              themeSystem="bootstrap"
-              initialView="dayGridMonth"
-              initialDate="2024-07-07"
+              locale={srLocale}
               headerToolbar={{
-                left: calendarNavigation,
+                left: "prev,next today",
                 center: "title",
                 right: "dayGridMonth,timeGridWeek,timeGridDay",
               }}
+              editable={true}
+              selectable={true}
+              plugins={[bootstrapPlugin, dayGridPlugin, timeGridPlugin]}
+              initialDate={currentDate}
+              themeSystem="bootstrap"
+              initialView="dayGridMonth"
               events={demoEvents}
               bootstrapFontAwesome={false}
+              eventColor="#378006"
+              eventBorderColor="#000000"
             />
           </Card.Body>
         </Card>

@@ -24,5 +24,6 @@
   "AppSettings": "App settings",
   "Analytics": "Analytics",
   "Calendar": "Calendar",
-  "CalendarLeftNav": "prev,next today"
+  "CalendarLeftNav": "prev,next, today",
+  "FileManager": "File manager"
 }

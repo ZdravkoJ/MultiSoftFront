@@ -24,5 +24,6 @@
   "AppSettings": "Postavke aplikacije",
   "Analytics": "Analitika",
   "Calendar": "Kalendar",
-  "CalendarLeftNav": "prethodni ,sledeci danas"
+  "CalendarLeftNav": "prethodni ,sledeci, danas",
+  "FileManager": "Menadžer DMS"
 }
