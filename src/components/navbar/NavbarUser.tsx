@@ -9,7 +9,7 @@ import useAuth from "../../hooks/useAuth";
 const NavbarUser = () => {
   const { t } = useTranslation();
 
-  const { signOut } = useAuth();
+  const { user, signOut } = useAuth();
 
   const handleLogoutSubmit = async () => {
     await signOut();
@@ -31,7 +31,7 @@ const NavbarUser = () => {
             width="40"
             height="40"
           />
-          <span>Chris Wood</span>
+          <span>{user?.username}</span>
         </Dropdown.Toggle>
       </span>
       <Dropdown.Menu>

@@ -9,7 +9,21 @@ export type ActionMap<M extends { [index: string]: any }> = {
       };
 };
 
-export type AuthUser = null | Record<string, any>;
+export type AuthUser = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  username: string;
+  pagePermissions: string[];
+} | null;
+
+//export type AuthUser = null | Record<string, any>;
+
+export type AuthResponse = {
+  accesToken: string;
+  user: AuthUser;
+};
 
 export type AuthState = {
   isAuthenticated: boolean;

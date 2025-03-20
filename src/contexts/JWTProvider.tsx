@@ -1,12 +1,14 @@
 import { useEffect, useReducer, ReactNode } from "react";
 
-import { ActionMap, AuthState, AuthUser } from "../types/auth";
+import { ActionMap, AuthResponse, AuthState, AuthUser } from "../types/auth";
 
-import axios from "../utils/axios";
+//import axios from "../utils/axios";
 import { isValidToken, setSession } from "../utils/jwt";
 
 import AuthContext from "./JWTContext";
 import { useNavigate } from "react-router-dom";
+
+import axiosInstance from "../utils/axios";
 
 const INITIALIZE = "INITIALIZE";
 const SIGN_IN = "SIGN_IN";
@@ -15,8 +17,8 @@ const SIGN_UP = "SIGN_UP";
 
 const API_URL =
   process.env.NODE_ENV === "production"
-    ? "https://akord.rs/api"
-    : "http://localhost:5281/api/Auth";
+    ? "https://localhost:5001/auth"
+    : "https://localhost:5001/auth";
 
 type AuthActionTypes = {
   [INITIALIZE]: {
@@ -81,29 +83,22 @@ function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const initialize = async () => {
       try {
-        const accessToken = window.localStorage.getItem("accessToken");
+        let accessToken = localStorage.getItem("accessToken");
 
-        if (accessToken && isValidToken(accessToken)) {
+        if (accessToken) {
           setSession(accessToken);
-          console.log("valid token", accessToken);
-          const response = await axios.get(`${API_URL}/MyAcc`); //await axios.get(`${API_URL}/Login/Korisnik/MyAcc`);
-          const { user } = response.data;
+          const userResponse = await axiosInstance.get(`${API_URL}/me`);
+          const user: AuthUser = userResponse.data;
 
           dispatch({
             type: INITIALIZE,
             payload: {
               isAuthenticated: true,
-              user,
+              user: user,
             },
           });
         } else {
-          dispatch({
-            type: INITIALIZE,
-            payload: {
-              isAuthenticated: false,
-              user: null,
-            },
-          });
+          signOut();
         }
       } catch (err) {
         console.error(err);
@@ -122,7 +117,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
   const signIn = async (username: string, password: string) => {
     try {
-      const response = await axios.post(`${API_URL}/Login`, {
+      const response = await axiosInstance.post(`${API_URL}/login`, {
         username,
         password,
       });
@@ -132,9 +127,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
         throw new Error(data.Error);
       }
       const accessToken = data.accessToken;
-      const { user } = data.user;
+      const user = data.userDetails;
 
-      console.log("jwtSign", accessToken);
       setSession(accessToken);
       dispatch({
         type: SIGN_IN,
@@ -159,7 +153,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
     firstName: string,
     lastName: string
   ) => {
-    const response = await axios.post("/api/auth/sign-up", {
+    const response = await axiosInstance.post(`${API_URL}/sign-up`, {
       email,
       password,
       firstName,
