@@ -26,8 +26,8 @@ Your app is ready to be deployed!
 
 See the section about [building for production](https://vitejs.dev/guide/build.html) for more information.
 
-## Learn More
+##Initial
 
-You can learn more in the [Vite documentation](https://vitejs.dev/).
+Removed unnecessary bloat that came with AppStack (there are still unused files/packages that are commented out, for now)
+Added JWTProivder, using useContexT(JWTContext) as a wrapper around App. 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
