@@ -25,5 +25,14 @@
   "Analytics": "Analytics",
   "Calendar": "Calendar",
   "CalendarLeftNav": "prev,next, today",
-  "FileManager": "File manager"
+  "FileManager": "File manager",
+  "SignUp": "Sign Up",
+  "FirstName": "First name",
+  "LastName": "Last name",
+  "FirstNameValidation": "First name is required",
+  "LastNameValidation": "Last name is required",
+  "EMailValidation": "Email must be valid",
+  "CompanyName": "Company name",
+  "HaveAccount": "Already have an account?",
+  "DontHaveAccount": "Don't have an account?"
 }

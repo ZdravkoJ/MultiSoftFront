@@ -1,7 +1,6 @@
 .navbar {
   border-bottom: $navbar-border-bottom;
   box-shadow: $navbar-box-shadow;
-
   @include media-breakpoint-down(md) {
     width: 100vw;
   }
@@ -16,7 +15,7 @@
     background: $navbar-input-bg;
     box-shadow: none;
     border: 0;
-    padding: $input-padding-y-lg $spacer*0.75;
+    padding: $input-padding-y-lg $spacer * 0.75;
 
     &:focus {
       background: $navbar-input-bg;
@@ -41,7 +40,7 @@
     .form-control,
     .btn {
       background: $navbar-input-bg-dark;
-  
+
       &:focus {
         background: $navbar-input-bg-dark;
       }
@@ -70,10 +69,10 @@
 }
 
 .navbar-align {
-  body:not([data-sidebar-position=right]) & {
+  body:not([data-sidebar-position="right"]) & {
     margin-left: auto;
   }
-  html[data-sidebar-position=right] & {
+  html[data-sidebar-position="right"] & {
     margin-right: auto;
   }
 }
@@ -98,7 +97,7 @@
 
 .nav-icon,
 .nav-flag {
-  padding: .1rem .8rem;
+  padding: 0.1rem 0.8rem;
   display: block;
   font-size: 1.5rem;
   transition: $transition-appearance-fast;
@@ -133,7 +132,7 @@
     top: 0;
     right: -8px;
     text-align: center;
-    transition: top .1s ease-out;
+    transition: top 0.1s ease-out;
     font-size: 0.675rem;
     color: $white;
   }
@@ -159,7 +158,7 @@
   }
 
   .nav-icon {
-    padding: .1rem .75rem;
+    padding: 0.1rem 0.75rem;
   }
 
   .dropdown,

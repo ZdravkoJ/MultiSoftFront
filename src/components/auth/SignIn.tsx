@@ -19,6 +19,7 @@ const SignIn = () => {
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [touched, setIsTouched] = useState(false);
+  const [registered, setRegistered] = useState(false);
 
   const validationSchema = yup.object({
     username: yup

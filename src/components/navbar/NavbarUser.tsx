@@ -5,6 +5,7 @@ import { PieChart, Settings, User } from "lucide-react";
 import avatar1 from "../../assets/img/avatars/avatar.jpg";
 import { useTranslation } from "react-i18next";
 import useAuth from "../../hooks/useAuth";
+import Logo from "../../assets/img/logo64x64.svg";
 
 const NavbarUser = () => {
   const { t } = useTranslation();
@@ -25,7 +26,7 @@ const NavbarUser = () => {
       <span className="d-none d-sm-inline-block">
         <Dropdown.Toggle as="a" className="nav-link">
           <img
-            src={avatar1}
+            src={Logo}
             className="avatar img-fluid rounded-circle me-1 mt-n2 mb-n2"
             alt="Chris Wood"
             width="40"

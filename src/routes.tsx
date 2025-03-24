@@ -163,6 +163,10 @@ const routes = [
         element: <SaaS />,
       },
       {
+        path: "social",
+        element: <Social />,
+      },
+      {
         path: "crypto",
         element: <Crypto />,
       },
@@ -239,6 +243,20 @@ const routes = [
       {
         path: "",
         element: <Calendar />,
+      },
+    ],
+  },
+  {
+    path: "email",
+    element: <DashboardLayout />,
+    children: [
+      {
+        path: "inbox",
+        element: <EmailInbox />,
+      },
+      {
+        path: "details",
+        element: <EmailDetails />,
       },
     ],
   },

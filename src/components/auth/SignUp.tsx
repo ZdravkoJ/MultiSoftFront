@@ -4,16 +4,20 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 import { Alert, Button, Form, Row, Col } from "react-bootstrap";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faApple } from "@fortawesome/free-brands-svg-icons";
-
-import brandGoogle from "../../assets/img/brands/google.svg";
-
 import useAuth from "../../hooks/useAuth";
+import { useTranslation } from "react-i18next";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const { signUp } = useAuth();
+  const { t } = useTranslation();
+
+  //array of companies to select from
+  const companies = [
+    { id: 1, name: "Company 1" },
+    { id: 2, name: "Company 2" },
+    { id: 3, name: "Company 3" },
+  ];
 
   return (
     <Formik
@@ -23,18 +27,36 @@ const SignUp = () => {
         email: "",
         password: "",
         submit: false,
+        companyName: "",
+        companyCode: "",
+        userNameWithoutCompanyCode: "TestUser",
+
+        companyType: 1,
       }}
       validationSchema={Yup.object().shape({
-        firstName: Yup.string().max(255).required("First name is required"),
-        lastName: Yup.string().max(255).required("Last name is required"),
+        firstName: Yup.string()
+          .max(50)
+          .required(`${t("FirstNameValidation")}`),
+        lastName: Yup.string()
+          .max(50)
+          .required(`${t("LastNameValidation")}`),
         email: Yup.string()
-          .email("Must be a valid email")
+          .email(`${t("EmailValidation")}`)
           .max(255)
-          .required("Email is required"),
+          .required(`${t("EmailValidation")}`),
         password: Yup.string()
-          .min(12, "Must be at least 12 characters")
-          .max(255)
-          .required("Required"),
+          .required(`${t("PasswordValidation")}`)
+          .matches(
+            /[A-Z]/,
+            "Password must contain at least one uppercase letter"
+          )
+          .matches(/[0-9]/, "Password must contain at least one number")
+          .matches(
+            /[^a-zA-Z0-9]/,
+            "Password must contain at least one special character"
+          ),
+        companyName: Yup.string().required("Required").max(100),
+        companyCode: Yup.string().required("Required"),
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
@@ -42,9 +64,12 @@ const SignUp = () => {
             values.email,
             values.password,
             values.firstName,
-            values.lastName
+            values.lastName,
+            values.companyName,
+            values.companyCode,
+            values.companyType,
+            values.userNameWithoutCompanyCode
           );
-          navigate("/auth/sign-in");
         } catch (error: any) {
           const message = error.message || "Something went wrong";
 
@@ -64,59 +89,6 @@ const SignUp = () => {
         values,
       }) => (
         <React.Fragment>
-          <div className="d-grid gap-2 mb-3">
-            <Link
-              to="/dashboard/default"
-              className="btn btn-facebook btn-lg position-relative shadow"
-            >
-              <span
-                className="float-start fs-3 position-absolute"
-                style={{ left: 16, top: 2 }}
-              >
-                <FontAwesomeIcon
-                  icon={faFacebook}
-                  fixedWidth
-                  className="fs-3"
-                />
-              </span>
-              Continue with Facebook
-            </Link>
-            <Link
-              to="/dashboard/default"
-              className="btn btn-google btn-lg position-relative shadow"
-            >
-              <span
-                className="float-start fs-3 position-absolute"
-                style={{ left: 16, top: 1 }}
-              >
-                <img src={brandGoogle} height="22" alt="Google" />
-              </span>
-              Continue with Google
-            </Link>
-            <Link
-              to="/dashboard/default"
-              className="btn btn-apple btn-lg position-relative shadow"
-            >
-              <span
-                className="float-start fs-3 position-absolute"
-                style={{ left: 16, top: 2 }}
-              >
-                <FontAwesomeIcon icon={faApple} fixedWidth className="fs-3" />
-              </span>
-              Continue with Apple
-            </Link>
-          </div>
-          <Row>
-            <Col>
-              <hr />
-            </Col>
-            <Col xs="auto" className="text-uppercase d-flex align-items-center">
-              Or
-            </Col>
-            <Col>
-              <hr />
-            </Col>
-          </Row>
           <Form onSubmit={handleSubmit}>
             {errors.submit && (
               <Alert className="my-3" variant="danger">
@@ -124,7 +96,7 @@ const SignUp = () => {
               </Alert>
             )}
             <Form.Group className="mb-3">
-              <Form.Label>First name</Form.Label>
+              <Form.Label>{t("FirstName")}</Form.Label>
               <Form.Control
                 type="text"
                 name="firstName"
@@ -141,7 +113,7 @@ const SignUp = () => {
               )}
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Last name</Form.Label>
+              <Form.Label>{t("LastName")}</Form.Label>
               <Form.Control
                 type="text"
                 name="lastName"
@@ -158,7 +130,7 @@ const SignUp = () => {
               )}
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>{t("email")}</Form.Label>
               <Form.Control
                 type="email"
                 name="email"
@@ -175,7 +147,7 @@ const SignUp = () => {
               )}
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>{t("Password")}</Form.Label>
               <Form.Control
                 type="password"
                 name="password"
@@ -191,6 +163,60 @@ const SignUp = () => {
                 </Form.Control.Feedback>
               )}
             </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>{t("CompanyName")}</Form.Label>
+              <Form.Control
+                type="text"
+                name="companyName"
+                placeholder="companyName"
+                value={values.companyName}
+                isInvalid={Boolean(touched.companyName && errors.companyName)}
+                onBlur={handleBlur}
+                onChange={handleChange}
+              />
+              {!!touched.companyName && (
+                <Form.Control.Feedback type="invalid">
+                  {errors.companyName}
+                </Form.Control.Feedback>
+              )}
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>{t("CompanyCode")}</Form.Label>
+              <Form.Control
+                type="text"
+                name="companyCode"
+                placeholder="CompanyCode"
+                value={values.companyCode}
+                isInvalid={Boolean(touched.companyCode && errors.companyCode)}
+                onBlur={handleBlur}
+                onChange={handleChange}
+              />
+              {!!touched.companyCode && (
+                <Form.Control.Feedback type="invalid">
+                  {errors.companyCode}
+                </Form.Control.Feedback>
+              )}
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>{t("userNameWithoutCompanyCode")}</Form.Label>
+              <Form.Control
+                type="text"
+                name="userNameWithoutCompanyCode"
+                placeholder="userNameWithoutCompanyCode"
+                value={values.userNameWithoutCompanyCode}
+                // isInvalid={Boolean(
+                //   touched.userNameWithoutCompanyCode &&
+                //     errors.userNameWithoutCompanyCode
+                // )}
+                onBlur={handleBlur}
+                onChange={handleChange}
+              />
+              {!!touched.userNameWithoutCompanyCode && (
+                <Form.Control.Feedback type="invalid">
+                  {errors.userNameWithoutCompanyCode}
+                </Form.Control.Feedback>
+              )}
+            </Form.Group>
             <div className="d-grid gap-2 mt-3">
               <Button
                 type="submit"
@@ -198,7 +224,7 @@ const SignUp = () => {
                 size="lg"
                 disabled={isSubmitting}
               >
-                Sign up
+                {t("SignUp")}
               </Button>
             </div>
           </Form>

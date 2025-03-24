@@ -26,5 +26,14 @@
   "Analytics": "Аналитика",
   "Calendar": "Календар",
   "CalendarLeftNav": "претходни, следећи данас",
-  "FileManager": "Менаџер ДМС"
+  "FileManager": "Менаџер ДМС",
+  "SignUp": "Региструј се",
+  "FirstName": "Име",
+  "LastName": "Презиме",
+  "FirstNameValidation": "Име је обавезно",
+  "LastNameValidation": "Презиме је обавезно",
+  "EMailValidation": "Емаил мора бити валидан",
+  "CompanyName": "Назив компаније",
+  "HaveAccount": "Већ имате налог?",
+  "DontHaveAccount": "Немате налог?"
 }

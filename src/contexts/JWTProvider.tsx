@@ -9,6 +9,7 @@ import AuthContext from "./JWTContext";
 import { useNavigate } from "react-router-dom";
 
 import axiosInstance from "../utils/axios";
+import { Modal } from "react-bootstrap";
 
 const INITIALIZE = "INITIALIZE";
 const SIGN_IN = "SIGN_IN";
@@ -151,13 +152,21 @@ function AuthProvider({ children }: { children: ReactNode }) {
     email: string,
     password: string,
     firstName: string,
-    lastName: string
+    lastName: string,
+    companyName: string,
+    companyCode: string,
+    companyType: number,
+    userNameWithoutCompanyCode: string
   ) => {
-    const response = await axiosInstance.post(`${API_URL}/sign-up`, {
+    const response = await axiosInstance.post(`${API_URL}/register`, {
       email,
       password,
       firstName,
       lastName,
+      companyName,
+      companyCode,
+      companyType,
+      userNameWithoutCompanyCode,
     });
     const { accessToken, user } = response.data;
 
@@ -184,6 +193,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
       }}
     >
       {children}
+      <Modal />
     </AuthContext.Provider>
   );
 }

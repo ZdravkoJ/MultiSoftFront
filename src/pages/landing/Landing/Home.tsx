@@ -17,6 +17,9 @@ import AuthContext from "../../../contexts/JWTContext";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import useDashboardItems from "../../../components/sidebar/useDashboardItems";
 import Wrapper from "../../../components/Wrapper";
+import SignUp from "../../../components/auth/SignUp";
+import { Link } from "react-router-dom";
+import Footer from "../../../components/Footer";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -32,13 +35,18 @@ const Home = () => {
 
   return (
     <>
-      {isAuthenticated && user && <Navbar></Navbar>}
-      {isAuthenticated && user && <Sidebar items={items} />}
+      <Navbar></Navbar>
       <section className="landing-intro pt-5 pt-lg-6 pb-5 pb-lg-7">
         <Container className="landing-intro-content">
           <Row className="align-items-center">
             <Col lg={5} className="mx-auto">
-              {!isAuthenticated && !user && <SignIn></SignIn>}
+              {!isAuthenticated && !user && (
+                <div>
+                  <Link to="/auth/sign-in">{t("SignIn")}</Link>
+                  <br></br>
+                  <Link to="/auth/sign-up">{t("SignUp")}</Link>
+                </div>
+              )}
             </Col>
           </Row>
         </Container>

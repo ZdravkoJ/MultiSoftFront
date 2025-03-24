@@ -41,7 +41,11 @@ export type JWTContextType = {
     email: string,
     password: string,
     firstName: string,
-    lastName: string
+    lastName: string,
+    companyName: string,
+    comapnyCode: string,
+    companyType: number,
+    userNameWithoutCompanyCode: string
   ) => Promise<void>;
   resetPassword: (email: string) => void;
 };
