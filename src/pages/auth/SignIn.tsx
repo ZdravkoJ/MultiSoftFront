@@ -10,13 +10,6 @@ import { Container, Row } from "react-bootstrap";
 const SignInPage = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (user) {
-      navigate("/private", { replace: true }); // Redirect if already logged in
-    }
-  }, [user, navigate]);
 
   return (
     <React.Fragment>

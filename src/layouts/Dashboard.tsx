@@ -10,6 +10,7 @@ import Footer from "../components/Footer";
 import Settings from "../components/Settings";
 import Loader from "../components/Loader";
 import MainModal from "../pages/ui/MainModal";
+import FirmSelection from "../components/FirmSelection";
 
 import useDashboardItems from "../../src/components/sidebar/useDashboardItems";
 import useAuth from "../hooks/useAuth";
@@ -29,7 +30,7 @@ const Dashboard: React.FC<DashboardProps> = ({ children }) => {
 
   return (
     <React.Fragment>
-      <></>
+      {/* // <FirmSelection><FirmSelection/> */}
       <Wrapper>
         <Sidebar items={items} />
         <Main>

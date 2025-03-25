@@ -49,7 +49,8 @@ const SignIn = () => {
       const accessToken = localStorage.getItem("accessToken");
 
       if (response.status === 200) {
-        navigate("/private");
+        window.location.href = "/private";
+        window.location.href = "/private";
       } else {
         console.log("response", response);
         let errorMessage = "";
