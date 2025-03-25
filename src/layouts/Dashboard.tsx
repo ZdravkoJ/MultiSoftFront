@@ -13,6 +13,7 @@ import MainModal from "../pages/ui/MainModal";
 
 import useDashboardItems from "../../src/components/sidebar/useDashboardItems";
 import useAuth from "../hooks/useAuth";
+import { Alert } from "react-bootstrap";
 
 interface DashboardProps {
   children?: ReactNode;
@@ -21,32 +22,29 @@ interface DashboardProps {
 const Dashboard: React.FC<DashboardProps> = ({ children }) => {
   const items = useDashboardItems();
   const { signIn, user, isInitialized } = useAuth();
-  const navigate = useNavigate();
   console.log("user", user);
-
-  if (!user || !isInitialized) {
-    return <Loader />;
+  if (!user) {
+    return <Alert variant="danger">User not found</Alert>;
   }
 
   return (
-    user && (
-      <React.Fragment>
-        <Wrapper>
-          <Sidebar items={items} />
-          <Main>
-            <Navbar />
-            <Content>
-              <Suspense fallback={<Loader />}>
-                {children}
-                <Outlet />
-              </Suspense>
-            </Content>
-            <Footer />
-          </Main>
-        </Wrapper>
-        <Settings />
-      </React.Fragment>
-    )
+    <React.Fragment>
+      <></>
+      <Wrapper>
+        <Sidebar items={items} />
+        <Main>
+          <Navbar />
+          <Content>
+            <Suspense fallback={<Loader />}>
+              {children}
+              <Outlet />
+            </Suspense>
+          </Content>
+          <Footer />
+        </Main>
+      </Wrapper>
+      <Settings />
+    </React.Fragment>
   );
 };
 

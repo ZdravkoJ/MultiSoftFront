@@ -51,28 +51,22 @@ const SignIn = () => {
       if (response.status === 200) {
         navigate("/private");
       } else {
+        console.log("response", response);
+        let errorMessage = "";
+
+        if (response.response.status === 401) {
+          errorMessage = "Invalid username or password";
+        }
         setIsOpen(true);
         setError(true);
-        setMessage("Login failed. Please try again.");
+        setMessage(errorMessage);
       }
     } catch (error: any) {
+      setIsOpen(true);
+      setError(true);
+      setMessage("An unexpected error occurred.");
+    } finally {
       setSubmitting(false);
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError;
-        const errorMessage =
-          axiosError.response?.data?.message || axiosError.message;
-
-        console.log("Error details:", axiosError);
-
-        setIsOpen(true);
-        setError(true);
-        setMessage(errorMessage); // Show the error message from the response or default message
-      } else {
-        // Handle any other types of errors (e.g., validation errors)
-        setIsOpen(true);
-        setError(true);
-        setMessage("An unexpected error occurred.");
-      }
     }
   };
 

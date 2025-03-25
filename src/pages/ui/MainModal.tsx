@@ -16,9 +16,19 @@ const MainModal: React.FC<MainModalProps> = ({
       <Modal.Header closeButton>
         <Modal.Title>{error ? "Error" : "Notification"}</Modal.Title>
       </Modal.Header>
-      <Modal.Body className="text-center m-3">
-        <p className="mb-0">{message}</p>
-      </Modal.Body>
+      {error ? (
+        <div>
+          <Alert variant="danger">{message}</Alert>
+          <Modal.Body className="text-center m-3">
+            <p className="mb-0">{message}</p>
+          </Modal.Body>
+        </div>
+      ) : (
+        <Modal.Body className="text-center m-3">
+          <p className="mb-0">{message}</p>
+        </Modal.Body>
+      )}
+
       <Modal.Footer>
         <Button variant="secondary" onClick={close}>
           Close

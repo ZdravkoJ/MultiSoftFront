@@ -9,6 +9,7 @@ import AuthContext from "./JWTContext";
 import { useNavigate } from "react-router-dom";
 
 import axiosInstance from "../utils/axios";
+import { AxiosResponse } from "../types/axiosResponse";
 
 const INITIALIZE = "INITIALIZE";
 const SIGN_IN = "SIGN_IN";
@@ -130,6 +131,10 @@ function AuthProvider({ children }: { children: ReactNode }) {
       const user = data.user;
       setSession(accessToken);
 
+      if (!accessToken) {
+        throw new Error("No access token received from the server");
+      }
+
       dispatch({
         type: SIGN_IN,
         payload: {
@@ -137,10 +142,9 @@ function AuthProvider({ children }: { children: ReactNode }) {
         },
       });
 
-      // Ensure state updates before navigation
-      setTimeout(() => navigate("/private"), 0);
+      setTimeout(() => navigate("/private"), 100);
     } catch (error: any) {
-      console.error(error);
+      return error;
     }
   };
 
