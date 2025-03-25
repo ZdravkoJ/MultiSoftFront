@@ -35,5 +35,6 @@
   "EMailValidation": "Емаил мора бити валидан",
   "CompanyName": "Назив компаније",
   "HaveAccount": "Већ имате налог?",
-  "DontHaveAccount": "Немате налог?"
+  "DontHaveAccount": "Немате налог?",
+  "Open": "Отвори"
 }

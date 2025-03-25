@@ -7,19 +7,23 @@ import { Alert, Button, Form, Row, Col } from "react-bootstrap";
 
 import useAuth from "../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
-import { sign } from "jsonwebtoken";
+import MainModal from "../../pages/ui/MainModal";
+import { set } from "date-fns";
+import axiosInstance from "../../utils/axios";
+import axios, { AxiosError } from "axios";
 
 const SignIn = () => {
   const navigate = useNavigate();
   const { signIn } = useAuth();
   const { t } = useTranslation();
 
-  const [username, setUsername] = useState(""); // "demo@bootlab.io"
-  const [password, setPassword] = useState(""); // "unsafepassword"
-  const [error, setError] = useState<string | null>(null);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [touched, setIsTouched] = useState(false);
-  const [registered, setRegistered] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState(false);
 
   const validationSchema = yup.object({
     username: yup
@@ -35,24 +39,40 @@ const SignIn = () => {
   const handleLoginSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitting(true);
-    setError(null);
     try {
       await validationSchema.validate(
         { username, password },
         { abortEarly: false }
       );
 
-      await signIn(username, password);
-      //getme accesstoken localstorage and log it
+      const response = await signIn(username, password);
       const accessToken = localStorage.getItem("accessToken");
-      navigate("/private");
-    } catch (error: any) {
-      if (error.name === "ValidationError") {
-        setError(error.errors.join(", "));
+
+      if (response.status === 200) {
+        navigate("/private");
       } else {
-        setError(error.message || "An error occurred");
+        setIsOpen(true);
+        setError(true);
+        setMessage("Login failed. Please try again.");
       }
+    } catch (error: any) {
       setSubmitting(false);
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        const errorMessage =
+          axiosError.response?.data?.message || axiosError.message;
+
+        console.log("Error details:", axiosError);
+
+        setIsOpen(true);
+        setError(true);
+        setMessage(errorMessage); // Show the error message from the response or default message
+      } else {
+        // Handle any other types of errors (e.g., validation errors)
+        setIsOpen(true);
+        setError(true);
+        setMessage("An unexpected error occurred.");
+      }
     }
   };
 
@@ -74,12 +94,11 @@ const SignIn = () => {
   return (
     <React.Fragment>
       <form onSubmit={handleLoginSubmit}>
-        {error !== null && error !== "" ? (
+        {/* {error && (
           <Alert className="my-3" variant="danger">
             <div className="alert-message">{error}</div>
           </Alert>
-        ) : null}
-
+        )} */}
         <Form.Group className="mb-3">
           <Form.Label>{t("Username")}</Form.Label>
           <Form.Control
@@ -129,6 +148,13 @@ const SignIn = () => {
           </Button>
         </div>
       </form>
+      <MainModal
+        isOpen={isOpen}
+        message={message}
+        error={error}
+        show={() => setIsOpen(true)}
+        close={() => setIsOpen(false)}
+      ></MainModal>
     </React.Fragment>
   );
 };

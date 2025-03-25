@@ -21,7 +21,7 @@ export type AuthUser = {
 //export type AuthUser = null | Record<string, any>;
 
 export type AuthResponse = {
-  accesToken: string;
+  accessToken: string;
   user: AuthUser;
 };
 
@@ -35,7 +35,7 @@ export type JWTContextType = {
   isInitialized: boolean;
   user: AuthUser;
   method: "jwt";
-  signIn: (username: string, password: string) => Promise<void>;
+  signIn: (username: string, password: string) => Promise<any>;
   signOut: () => Promise<void>;
   signUp: (
     email: string,

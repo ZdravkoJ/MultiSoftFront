@@ -16,13 +16,13 @@ const Default = () => (
     <Helmet title="Default Dashboard" />
     <Container fluid className="p-0">
       <Header />
-      <Statistics />
+      {/* <Statistics /> */}
       <Row>
         <Col lg={8} className="d-flex">
-          <BarChart />
+          {/* <BarChart /> */}
         </Col>
         <Col lg={4} className="d-flex">
-          <Feed />
+          {/* <Feed /> */}
         </Col>
       </Row>
       <Row>
@@ -30,13 +30,13 @@ const Default = () => (
           <Calendar />
         </Col>
         <Col lg={6} xl={4} className="d-flex">
-          <PieChart />
+          {/* <PieChart /> */}
         </Col>
-        <Col lg={6} xl={4} className="d-flex">
+        {/* <Col lg={6} xl={4} className="d-flex">
           <Appointments />
-        </Col>
+        </Col> */}
       </Row>
-      <Projects />
+      {/* <Projects /> */}
     </Container>
   </React.Fragment>
 );

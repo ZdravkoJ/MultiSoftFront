@@ -16,7 +16,6 @@ axiosInstance.interceptors.request.use(
         config.headers = {};
       }
       config.headers.Authorization = `Bearer ${accessToken}`;
-      console.log(config.headers.Authorization);
     }
     return config;
   },
@@ -29,12 +28,13 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-
     if (originalRequest.url === "auth/refresh-token") {
       // If the refresh token request fails, log out the user
-      console.error("Refresh token request failed:", error);
       localStorage.removeItem("accessToken");
-      window.location.href = "/";
+      return Promise.reject(error);
+    }
+
+    if (originalRequest.url.includes("/login")) {
       return Promise.reject(error);
     }
 
@@ -45,7 +45,6 @@ axiosInstance.interceptors.response.use(
         // Make a request to your auth server to refresh the token.
         const response = await axiosInstance.get("auth/refresh-token");
         const { accessToken } = response.data;
-        console.log("refreshTry: ", accessToken);
 
         axios.defaults.headers.common[
           "Authorization"
@@ -58,7 +57,6 @@ axiosInstance.interceptors.response.use(
         console.error("Token refresh failed:", refreshError);
         delete originalRequest._retry;
         localStorage.removeItem("accessToken");
-        window.location.href = "/";
         return Promise.reject(refreshError);
       }
     }

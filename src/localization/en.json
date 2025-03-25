@@ -34,5 +34,6 @@
   "EMailValidation": "Email must be valid",
   "CompanyName": "Company name",
   "HaveAccount": "Already have an account?",
-  "DontHaveAccount": "Don't have an account?"
+  "DontHaveAccount": "Don't have an account?",
+  "Open": "Open"
 }

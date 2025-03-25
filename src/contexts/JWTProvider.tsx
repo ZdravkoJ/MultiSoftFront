@@ -1,4 +1,4 @@
-import { useEffect, useReducer, ReactNode } from "react";
+import { useEffect, useReducer, ReactNode, useContext } from "react";
 
 import { ActionMap, AuthResponse, AuthState, AuthUser } from "../types/auth";
 
@@ -9,7 +9,6 @@ import AuthContext from "./JWTContext";
 import { useNavigate } from "react-router-dom";
 
 import axiosInstance from "../utils/axios";
-import { Modal } from "react-bootstrap";
 
 const INITIALIZE = "INITIALIZE";
 const SIGN_IN = "SIGN_IN";
@@ -82,27 +81,27 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const initialize = async () => {
-      try {
-        let accessToken = localStorage.getItem("accessToken");
+    let isMounted = true;
 
-        if (accessToken) {
+    const initialize = async () => {
+      const accessToken = localStorage.getItem("accessToken");
+
+      try {
+        if (accessToken && isMounted) {
+          console.log("Initializing with token:", accessToken);
           setSession(accessToken);
+
           const userResponse = await axiosInstance.get(`${API_URL}/me`);
           const user: AuthUser = userResponse.data;
 
-          dispatch({
-            type: INITIALIZE,
-            payload: {
-              isAuthenticated: true,
-              user: user,
-            },
-          });
-        } else {
-          signOut();
+          if (isMounted) {
+            dispatch({
+              type: INITIALIZE,
+              payload: { isAuthenticated: !!accessToken && !!user, user },
+            });
+          }
         }
       } catch (err) {
-        console.error(err);
         dispatch({
           type: INITIALIZE,
           payload: {
@@ -114,6 +113,9 @@ function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     initialize();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const signIn = async (username: string, password: string) => {
@@ -122,23 +124,23 @@ function AuthProvider({ children }: { children: ReactNode }) {
         username,
         password,
       });
-      const data = response.data;
 
-      if (data.Error) {
-        throw new Error(data.Error);
-      }
+      const data: AuthResponse = response.data;
       const accessToken = data.accessToken;
-      const user = data.userDetails;
-
+      const user = data.user;
       setSession(accessToken);
+
       dispatch({
         type: SIGN_IN,
         payload: {
           user,
         },
       });
-    } catch (error) {
-      console.log("catchblockerror", error);
+
+      // Ensure state updates before navigation
+      setTimeout(() => navigate("/private"), 0);
+    } catch (error: any) {
+      console.error(error);
     }
   };
 
@@ -193,7 +195,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
       }}
     >
       {children}
-      <Modal />
     </AuthContext.Provider>
   );
 }

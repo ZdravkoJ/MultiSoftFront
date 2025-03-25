@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { Alert, Button, Form, Row, Col } from "react-bootstrap";
+import { Alert, Button, Form, Row, Col, Modal } from "react-bootstrap";
 
 import useAuth from "../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
