@@ -142,7 +142,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
         },
       });
 
-      setTimeout(() => navigate("/private"), 100);
+      navigate("/private");
+      window.location.reload();
     } catch (error: any) {
       return error;
     }
