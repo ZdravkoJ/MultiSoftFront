@@ -5,15 +5,18 @@ import { PieChart, Settings, User } from "lucide-react";
 import avatar1 from "../../assets/img/avatars/avatar.jpg";
 import { useTranslation } from "react-i18next";
 import useAuth from "../../hooks/useAuth";
+import { useFirm } from "../../hooks/useFirm";
 import Logo from "../../assets/img/logo64x64.svg";
 
 const NavbarUser = () => {
   const { t } = useTranslation();
 
   const { user, signOut } = useAuth();
+  const { handleSelectedFirm } = useFirm();
 
   const handleLogoutSubmit = async () => {
     await signOut();
+    handleSelectedFirm(null);
   };
 
   return (

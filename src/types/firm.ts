@@ -18,5 +18,5 @@ export enum LicenseType {
 
 export interface FirmContextType {
   selectedFirm: Firm | null;
-  handleSelectedFirm: (firm: Firm) => void;
+  handleSelectedFirm: (firm: Firm | null) => void;
 }

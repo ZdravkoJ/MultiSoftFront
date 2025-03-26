@@ -13,7 +13,7 @@ const FirmProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  const handleSelectedFirm = (firm: Firm) => {
+  const handleSelectedFirm = (firm: Firm | null) => {
     setSelectedFirm(firm);
     localStorage.setItem("selectedFirm", JSON.stringify(firm));
   };
