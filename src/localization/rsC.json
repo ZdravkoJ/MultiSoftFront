@@ -36,5 +36,6 @@
   "CompanyName": "Назив компаније",
   "HaveAccount": "Већ имате налог?",
   "DontHaveAccount": "Немате налог?",
-  "Open": "Отвори"
+  "Open": "Отвори",
+  "ControlPanel": "Контролна табла"
 }

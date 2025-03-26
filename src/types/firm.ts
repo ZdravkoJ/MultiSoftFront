@@ -15,3 +15,8 @@ export enum LicenseType {
   Micro = "Micro",
   Standard = "Standard",
 }
+
+export interface FirmContextType {
+  selectedFirm: Firm | null;
+  handleSelectedFirm: (firm: Firm) => void;
+}

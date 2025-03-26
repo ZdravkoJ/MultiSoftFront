@@ -16,6 +16,7 @@ import ChartJsDefaults from "./utils/ChartJsDefaults";
 
 import AuthProvider from "./contexts/JWTProvider";
 import AuthGuard from "./components/guards/AuthGuard";
+import FirmProvider from "./contexts/FirmProvider";
 // import AuthProvider from "./contexts/FirebaseAuthProvider";
 // import AuthProvider from "./contexts/Auth0Provider";
 // import AuthProvider from "./contexts/CognitoProvider";
@@ -24,26 +25,28 @@ const App = () => {
   const content = useRoutes(routes);
 
   return (
-    <AuthProvider>
-      <HelmetProvider>
-        <Helmet
-          titleTemplate="%s | AppStack - React Admin & Dashboard Template"
-          defaultTitle="AppStack - React Admin & Dashboard Template"
-        />
-        <Suspense fallback={<Loader />}>
-          <Provider store={store}>
-            <ThemeProvider>
-              <SidebarProvider>
-                <LayoutProvider>
-                  <ChartJsDefaults />
-                  {content}
-                </LayoutProvider>
-              </SidebarProvider>
-            </ThemeProvider>
-          </Provider>
-        </Suspense>
-      </HelmetProvider>
-    </AuthProvider>
+    <HelmetProvider>
+      <AuthProvider>
+        <FirmProvider>
+          <Helmet
+            titleTemplate="%s | AppStack - React Admin & Dashboard Template"
+            defaultTitle="AppStack - React Admin & Dashboard Template"
+          />
+          <Suspense fallback={<Loader />}>
+            <Provider store={store}>
+              <ThemeProvider>
+                <SidebarProvider>
+                  <LayoutProvider>
+                    <ChartJsDefaults />
+                    {content}
+                  </LayoutProvider>
+                </SidebarProvider>
+              </ThemeProvider>
+            </Provider>
+          </Suspense>
+        </FirmProvider>
+      </AuthProvider>
+    </HelmetProvider>
   );
 };
 

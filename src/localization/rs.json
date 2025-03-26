@@ -35,5 +35,6 @@
   "CompanyName": "Naziv kompanije",
   "HaveAccount": "Već imate nalog?",
   "DontHaveAccount": "Nemate nalog?",
-  "Open": "Otvori"
+  "Open": "Otvori",
+  "ControlPanel": "Kontrolna tabla"
 }

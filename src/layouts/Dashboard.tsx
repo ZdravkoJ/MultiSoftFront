@@ -14,6 +14,7 @@ import FirmSelection from "../components/FirmSelection";
 import useDashboardItems from "../../src/components/sidebar/useDashboardItems";
 import useAuth from "../hooks/useAuth";
 import { Firm, LicenseType } from "../types/firm";
+import { useFirm } from "../hooks/useFirm";
 
 interface DashboardProps {
   children?: ReactNode;
@@ -22,24 +23,24 @@ interface DashboardProps {
 const Dashboard: React.FC<DashboardProps> = ({ children }) => {
   const items = useDashboardItems();
   const { signIn, user, isInitialized } = useAuth();
-  const [selectedFirm, setSelectedFirm] = useState<Firm | null>(null);
+  const { selectedFirm, handleSelectedFirm } = useFirm();
   const [firms, setFirms] = useState<Firm[]>([]);
 
   //
   useEffect(() => {
     if (user) {
       setFirms(user.firms);
-
-      if (firms.length === 1) {
-        setSelectedFirm(firms[0]);
-      }
     }
   }, [user]);
 
+  useEffect(() => {
+    if (firms.length === 1 && !selectedFirm) {
+      handleSelectedFirm(firms[0]); // Auto-select firm if only one is available
+    }
+  }, [firms, selectedFirm]);
+
   if (!selectedFirm) {
-    return (
-      <FirmSelection firms={firms} onFirmSelect={setSelectedFirm} show={true} />
-    );
+    return <FirmSelection firms={firms} show={true} />;
   }
 
   return (

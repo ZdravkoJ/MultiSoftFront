@@ -3,6 +3,7 @@ import { initReactI18next } from "react-i18next";
 import en from "./localization/en.json";
 import rs from "./localization/rs.json";
 import rsC from "./localization/rsC.json";
+import test from "./localization/en";
 
 const resources = {
   en: {
@@ -13,6 +14,9 @@ const resources = {
   },
   rsC: {
     translation: rsC,
+  },
+  test: {
+    translation: test,
   },
 };
 

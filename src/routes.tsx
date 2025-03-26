@@ -17,6 +17,9 @@ const Landing = lazy(() => import("./pages/landing/Landing"));
 
 // Dashboards
 const Default = lazy(() => import("./pages/dashboards/Default"));
+const ControlPanel = lazy(
+  () => import("./pages/dashboards/Company/ControlPanel")
+);
 const Analytics = lazy(() => import("./pages/dashboards/Analytics"));
 const SaaS = lazy(() => import("./pages/dashboards/SaaS"));
 const Social = lazy(() => import("./pages/dashboards/Social"));
@@ -153,6 +156,10 @@ const routes = [
       {
         path: "default",
         element: <Default />,
+      },
+      {
+        path: "control-panel",
+        element: <ControlPanel />,
       },
       {
         path: "analytics",

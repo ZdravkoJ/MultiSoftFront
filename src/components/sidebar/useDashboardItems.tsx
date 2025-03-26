@@ -36,6 +36,11 @@ const useDashboardItems = (): {
       badge: "",
       children: [
         {
+          href: "/dashboard/control-panel",
+          title: t("ControlPanel"),
+          icon: Users,
+        },
+        {
           href: "/dashboard/default",
           title: t("AppSettings"),
           icon: Heart,

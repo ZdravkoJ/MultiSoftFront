@@ -2,20 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Firm, LicenseType } from "../types/firm";
 import { Button, Form, FormControl, InputGroup, Modal } from "react-bootstrap";
-import useAuth from "../hooks/useAuth";
+import { useFirm } from "../hooks/useFirm";
 
-const FirmSelection = ({
-  firms,
-  show,
-  onFirmSelect,
-}: {
-  firms: Firm[];
-  show: boolean;
-  onFirmSelect: (firm: Firm) => void;
-}) => {
+const FirmSelection = ({ firms, show }: { firms: Firm[]; show: boolean }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredFirms, setFilteredFirms] = useState<Firm[]>(firms);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const { selectedFirm, handleSelectedFirm } = useFirm();
 
   useEffect(() => {
     setFilteredFirms(
@@ -26,7 +19,10 @@ const FirmSelection = ({
   }, [searchTerm, firms]);
 
   const handleFirmSelection = (firm: Firm) => {
-    onFirmSelect(firm);
+    //todo: make api call to check if user has access to the firm and if firm has active license
+
+    handleSelectedFirm(firm);
+    //on error return error message
   };
 
   return (

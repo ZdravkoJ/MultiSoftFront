@@ -119,14 +119,14 @@ const SignIn = () => {
           </small>
         </Form.Group>
 
-        <div>
+        {/* <div>
           <Form.Check
             type="checkbox"
             id="rememberMe"
             label="Remember me"
             defaultChecked
           />
-        </div>
+        </div> */}
 
         <div className="d-grid gap-2 mt-3">
           <Button

@@ -35,5 +35,6 @@
   "CompanyName": "Company name",
   "HaveAccount": "Already have an account?",
   "DontHaveAccount": "Don't have an account?",
-  "Open": "Open"
+  "Open": "Open",
+  "ControlPanel": "Control panel"
 }
