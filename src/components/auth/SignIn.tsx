@@ -11,6 +11,7 @@ import MainModal from "../../pages/ui/MainModal";
 import { set } from "date-fns";
 import axiosInstance from "../../utils/axios";
 import axios, { AxiosError } from "axios";
+import { AuthResponse, AuthUser } from "../../types/auth";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -45,30 +46,25 @@ const SignIn = () => {
         { abortEarly: false }
       );
 
-      const response = await signIn(username, password);
-      const accessToken = localStorage.getItem("accessToken");
+      const response: AuthResponse = await signIn(username, password);
 
-      if (response.status === 200) {
-        window.location.href = "/private";
-        window.location.href = "/private";
-      } else {
-        console.log("response", response);
-        let errorMessage = "";
+      console.log(response);
 
-        if (response.response.status === 401) {
-          errorMessage = "Invalid username or password";
-        }
-        setIsOpen(true);
-        setError(true);
-        setMessage(errorMessage);
+      if (response.userDetails !== null) navigate("/dashboard");
+      else {
+        showErrorModal("Invalid username or password.");
       }
     } catch (error: any) {
-      setIsOpen(true);
-      setError(true);
-      setMessage("An unexpected error occurred.");
+      showErrorModal("Unexpected error.");
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const showErrorModal = (message: string) => {
+    setIsOpen(true);
+    setMessage(message);
+    setError(true);
   };
 
   //make me handleblur and handlechange for username/password
@@ -149,7 +145,7 @@ const SignIn = () => {
         error={error}
         show={() => setIsOpen(true)}
         close={() => setIsOpen(false)}
-      ></MainModal>
+      />
     </React.Fragment>
   );
 };

@@ -1,3 +1,5 @@
+import { Firm, LicenseType } from "./firm";
+
 export type ActionMap<M extends { [index: string]: any }> = {
   [Key in keyof M]: M[Key] extends undefined
     ? {
@@ -11,18 +13,18 @@ export type ActionMap<M extends { [index: string]: any }> = {
 
 export type AuthUser = {
   id: string;
-  firstName: string;
-  lastName: string;
+  fullanme: string;
   email: string;
   username: string;
   pagePermissions: string[];
+  firms: Firm[];
 } | null;
 
 //export type AuthUser = null | Record<string, any>;
 
 export type AuthResponse = {
   accessToken: string;
-  user: AuthUser;
+  userDetails: AuthUser;
 };
 
 export type AuthState = {

@@ -1,4 +1,4 @@
-import React, { Suspense, ReactNode } from "react";
+import React, { Suspense, ReactNode, useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
 import Wrapper from "../components/Wrapper";
@@ -9,12 +9,11 @@ import Content from "../components/Content";
 import Footer from "../components/Footer";
 import Settings from "../components/Settings";
 import Loader from "../components/Loader";
-import MainModal from "../pages/ui/MainModal";
 import FirmSelection from "../components/FirmSelection";
 
 import useDashboardItems from "../../src/components/sidebar/useDashboardItems";
 import useAuth from "../hooks/useAuth";
-import { Alert } from "react-bootstrap";
+import { Firm, LicenseType } from "../types/firm";
 
 interface DashboardProps {
   children?: ReactNode;
@@ -23,14 +22,28 @@ interface DashboardProps {
 const Dashboard: React.FC<DashboardProps> = ({ children }) => {
   const items = useDashboardItems();
   const { signIn, user, isInitialized } = useAuth();
-  console.log("user", user);
-  if (!user) {
-    return <Alert variant="danger">User not found</Alert>;
+  const [selectedFirm, setSelectedFirm] = useState<Firm | null>(null);
+  const [firms, setFirms] = useState<Firm[]>([]);
+
+  //
+  useEffect(() => {
+    if (user) {
+      setFirms(user.firms);
+
+      if (firms.length === 1) {
+        setSelectedFirm(firms[0]);
+      }
+    }
+  }, [user]);
+
+  if (!selectedFirm) {
+    return (
+      <FirmSelection firms={firms} onFirmSelect={setSelectedFirm} show={true} />
+    );
   }
 
   return (
     <React.Fragment>
-      {/* // <FirmSelection><FirmSelection/> */}
       <Wrapper>
         <Sidebar items={items} />
         <Main>

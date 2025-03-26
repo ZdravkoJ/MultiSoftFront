@@ -632,20 +632,20 @@ const routes = [
       },
     ],
   },
-  {
-    path: "private",
-    element: (
-      <AuthGuard>
-        <DashboardLayout />
-      </AuthGuard>
-    ),
-    children: [
-      {
-        path: "",
-        element: <ProtectedPage />,
-      },
-    ],
-  },
+  // {
+  //   path: "private",
+  //   element: (
+  //     <AuthGuard>
+  //       <DashboardLayout />
+  //     </AuthGuard>
+  //   ),
+  //   children: [
+  //     {
+  //       path: "",
+  //       element: <ProtectedPage />,
+  //     },
+  //   ],
+  // },
   {
     path: "*",
     element: <AuthLayout />,

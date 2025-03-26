@@ -1,47 +1,58 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Firm, LicenseType } from "../types/firm";
+import { Button, Form, FormControl, InputGroup, Modal } from "react-bootstrap";
+import useAuth from "../hooks/useAuth";
 
-const firms: Firm[] = [
-  {
-    id: 1,
-    name: "Company 1",
-    license: {
-      type: LicenseType.Basic,
-      start: new Date(),
-      expiration: new Date(),
-    },
-  },
-  {
-    id: 2,
-    name: "Company 2",
-    license: {
-      type: LicenseType.Basic,
-      start: new Date(),
-      expiration: new Date(),
-    },
-  },
-  {
-    id: 3,
-    name: "Company 3",
-    license: {
-      type: LicenseType.Basic,
-      start: new Date(),
-      expiration: new Date(),
-    },
-  },
-];
-
-const FirmSelection = (firms: Firm[]) => {
-  const [selectedFirm, setSelectedFirm] = useState(null);
+const FirmSelection = ({
+  firms,
+  show,
+  onFirmSelect,
+}: {
+  firms: Firm[];
+  show: boolean;
+  onFirmSelect: (firm: Firm) => void;
+}) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const searchInputRef = useRef(null);
+  const [filteredFirms, setFilteredFirms] = useState<Firm[]>(firms);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // Focus the search input when the component is mounted
-    if (searchInputRef.current) {
-    }
-  }, []);
+    setFilteredFirms(
+      firms.filter((firm) =>
+        firm.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  }, [searchTerm, firms]);
+
+  const handleFirmSelection = (firm: Firm) => {
+    onFirmSelect(firm);
+  };
+
+  return (
+    <Modal size="lg" centered show={show} backdrop="static">
+      <Modal.Header>Select company</Modal.Header>
+      <Modal.Body className="text-center m-3">
+        <input
+          ref={searchInputRef}
+          type="text"
+          placeholder="Search firms..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="form-control"
+        />
+        <ul className="max-h-60 overflow-y-auto">
+          {filteredFirms.map((firm) => (
+            <li key={firm.id} className="p-2 border-b">
+              <Button onClick={() => handleFirmSelection(firm)}>
+                {firm.name}
+              </Button>
+            </li>
+          ))}
+        </ul>
+      </Modal.Body>
+    </Modal>
+  );
 };
 
 export default FirmSelection;

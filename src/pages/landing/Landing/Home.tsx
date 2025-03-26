@@ -12,12 +12,8 @@ import {
 
 import { useTranslation } from "react-i18next";
 import Navbar from "../../../components/navbar/Navbar";
-import SignIn from "../../../components/auth/SignIn";
 import AuthContext from "../../../contexts/JWTContext";
-import Sidebar from "../../../components/sidebar/Sidebar";
 import useDashboardItems from "../../../components/sidebar/useDashboardItems";
-import Wrapper from "../../../components/Wrapper";
-import SignUp from "../../../components/auth/SignUp";
 import { Link } from "react-router-dom";
 import Footer from "../../../components/Footer";
 

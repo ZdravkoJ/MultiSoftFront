@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 import axiosInstance from "../utils/axios";
 import { AxiosResponse } from "../types/axiosResponse";
+import { Firm, LicenseType } from "../types/firm";
 
 const INITIALIZE = "INITIALIZE";
 const SIGN_IN = "SIGN_IN";
@@ -77,25 +78,53 @@ const JWTReducer = (
   }
 };
 
+const fetchedFirms: Firm[] = [
+  {
+    id: 1,
+    name: "Company 1",
+    license: {
+      type: LicenseType.Basic,
+      start: new Date(),
+      expiration: new Date(),
+    },
+  },
+  {
+    id: 2,
+    name: "Company 2",
+    license: {
+      type: LicenseType.Basic,
+      start: new Date(),
+      expiration: new Date(),
+    },
+  },
+  {
+    id: 3,
+    name: "Company 3",
+    license: {
+      type: LicenseType.Basic,
+      start: new Date(),
+      expiration: new Date(),
+    },
+  },
+];
+
 function AuthProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(JWTReducer, initialState);
   const navigate = useNavigate();
 
   useEffect(() => {
-    let isMounted = true;
-
     const initialize = async () => {
       const accessToken = localStorage.getItem("accessToken");
 
       try {
-        if (accessToken && isMounted) {
-          console.log("Initializing with token:", accessToken);
+        if (accessToken) {
           setSession(accessToken);
 
           const userResponse = await axiosInstance.get(`${API_URL}/me`);
-          const user: AuthUser = userResponse.data;
+          let user: AuthUser = userResponse.data;
+          if (user !== null) {
+            user.firms = fetchedFirms;
 
-          if (isMounted) {
             dispatch({
               type: INITIALIZE,
               payload: { isAuthenticated: !!accessToken && !!user, user },
@@ -114,9 +143,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
     };
 
     initialize();
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
   const signIn = async (username: string, password: string) => {
@@ -127,13 +153,15 @@ function AuthProvider({ children }: { children: ReactNode }) {
       });
 
       const data: AuthResponse = response.data;
-      const accessToken = data.accessToken;
-      const user = data.user;
-      setSession(accessToken);
+      const accessToken = data?.accessToken;
+      const user = data?.userDetails;
 
-      if (!accessToken) {
+      if (!accessToken || user === null) {
         throw new Error("No access token received from the server");
       }
+
+      user.firms = fetchedFirms;
+      setSession(accessToken);
 
       dispatch({
         type: SIGN_IN,
@@ -141,9 +169,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
           user,
         },
       });
-
-      navigate("/private");
-      window.location.reload();
+      return { data };
     } catch (error: any) {
       return error;
     }

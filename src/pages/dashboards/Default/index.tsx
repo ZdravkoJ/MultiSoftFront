@@ -26,9 +26,7 @@ const Default = () => (
         </Col>
       </Row>
       <Row>
-        <Col lg={6} xl={4} className="d-flex">
-          <Calendar />
-        </Col>
+        <Col lg={6} xl={4} className="d-flex"></Col>
         <Col lg={6} xl={4} className="d-flex">
           {/* <PieChart /> */}
         </Col>
