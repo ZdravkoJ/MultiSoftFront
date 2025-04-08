@@ -1,7 +1,7 @@
 export interface Firm {
   id: number;
   name: string;
-  license: License;
+  license: License | null;
 }
 
 export interface License {
@@ -18,5 +18,5 @@ export enum LicenseType {
 
 export interface FirmContextType {
   selectedFirm: Firm | null;
-  handleSelectedFirm: (firm: Firm | null) => void;
+  handleSelectedFirm: (firm: Firm | null, apiCall?: boolean) => void;
 }

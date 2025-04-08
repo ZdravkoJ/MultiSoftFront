@@ -9,9 +9,9 @@ interface AuthGuardType {
 
 // For routes that can only be accessed by authenticated users
 const AuthGuard = ({ children }: AuthGuardType) => {
-  const { isAuthenticated, isInitialized } = useAuth();
+  const { isAuthenticated, isInitialized, user } = useAuth();
 
-  if (isInitialized && !isAuthenticated) {
+  if ((isInitialized && !isAuthenticated) || !user) {
     return <Navigate to="/" />;
   }
 

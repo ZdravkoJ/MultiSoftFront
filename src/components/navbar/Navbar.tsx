@@ -21,7 +21,7 @@ import NavbarThemeToggle from "./NavbarThemeToggle";
 import NavbarUser from "./NavbarUser";
 import avatar1 from "../../assets/img/avatars/avatar.jpg";
 import useAuth from "../../hooks/useAuth";
-import AuthGuard from "../guards/AuthGuard";
+import { useFirm } from "../../hooks/useFirm";
 
 const notifications = [
   {
@@ -45,11 +45,12 @@ const NavbarComponent = () => {
   const { t } = useTranslation();
   const { isOpen, setIsOpen } = useSidebar();
   const { signIn, user } = useAuth();
+  const { selectedFirm, handleSelectedFirm } = useFirm();
 
   return (
     <React.Fragment>
       <Navbar variant="light" expand className="navbar-bg">
-        {user && (
+        {user && user.userCompanies.length > 0 && (
           <>
             <span
               className="sidebar-toggle d-flex"
@@ -69,6 +70,23 @@ const NavbarComponent = () => {
                   <Search className="lucide" />
                 </Button>
               </InputGroup>
+            </Form>
+            <Form className="d-none d-sm-inline-block">
+              <Form.Control
+                as="select"
+                name="companyType"
+                placeholder="Select Company"
+                onClick={() => {
+                  handleSelectedFirm;
+                  console.log("selectedFirm", selectedFirm);
+                }}
+              >
+                {user.userCompanies.map((company) => (
+                  <option key={company.id} value={company.id}>
+                    {company.name}
+                  </option>
+                ))}
+              </Form.Control>
             </Form>
           </>
         )}

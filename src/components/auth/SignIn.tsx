@@ -8,14 +8,11 @@ import { Alert, Button, Form, Row, Col } from "react-bootstrap";
 import useAuth from "../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
 import MainModal from "../../pages/ui/MainModal";
-import { set } from "date-fns";
-import axiosInstance from "../../utils/axios";
-import axios, { AxiosError } from "axios";
-import { AuthResponse, AuthUser } from "../../types/auth";
+import { AuthResponse, AuthUser, SignInProps } from "../../types/auth";
 
-const SignIn = () => {
+const SignIn = ({ isSuperAdmin = false }: SignInProps) => {
   const navigate = useNavigate();
-  const { signIn } = useAuth();
+  const { signIn, signInSA } = useAuth();
   const { t } = useTranslation();
 
   const [username, setUsername] = useState("");
@@ -46,12 +43,25 @@ const SignIn = () => {
         { abortEarly: false }
       );
 
-      const response: AuthResponse = await signIn(username, password);
+      const response = isSuperAdmin
+        ? await signInSA(username, password)
+        : await signIn(username, password);
 
       console.log(response);
 
-      if (response.userDetails !== null) navigate("/dashboard");
-      else {
+      if (
+        response.data.userDetails != null &&
+        response.data.accessToken != null &&
+        response.data.userType !== 1
+      )
+        navigate("/dashboard");
+      else if (
+        response.data.userDetails != null &&
+        response.data.accessToken != null &&
+        response.data.userType !== 1
+      ) {
+        console.log("not superadmin");
+      } else {
         showErrorModal("Invalid username or password.");
       }
     } catch (error: any) {
@@ -114,9 +124,6 @@ const SignIn = () => {
             onBlur={handleBlur}
             onChange={handleChange}
           />
-          <small>
-            <Link to="/auth/reset-password">Forgot password?</Link>
-          </small>
         </Form.Group>
 
         {/* <div>

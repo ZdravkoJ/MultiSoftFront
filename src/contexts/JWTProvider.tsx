@@ -1,6 +1,12 @@
 import { useEffect, useReducer, ReactNode, useContext } from "react";
 
-import { ActionMap, AuthResponse, AuthState, AuthUser } from "../types/auth";
+import {
+  ActionMap,
+  AuthResponse,
+  AuthState,
+  AuthUser,
+  RegisterResponse,
+} from "../types/auth";
 
 //import axios from "../utils/axios";
 import { isValidToken, setSession } from "../utils/jwt";
@@ -78,36 +84,6 @@ const JWTReducer = (
   }
 };
 
-const fetchedFirms: Firm[] = [
-  {
-    id: 1,
-    name: "Company 1",
-    license: {
-      type: LicenseType.Basic,
-      start: new Date(),
-      expiration: new Date(),
-    },
-  },
-  {
-    id: 2,
-    name: "Company 2",
-    license: {
-      type: LicenseType.Basic,
-      start: new Date(),
-      expiration: new Date(),
-    },
-  },
-  {
-    id: 3,
-    name: "Company 3",
-    license: {
-      type: LicenseType.Basic,
-      start: new Date(),
-      expiration: new Date(),
-    },
-  },
-];
-
 function AuthProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(JWTReducer, initialState);
   const navigate = useNavigate();
@@ -123,7 +99,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
           const userResponse = await axiosInstance.get(`${API_URL}/me`);
           let user: AuthUser = userResponse.data;
           if (user !== null) {
-            user.firms = fetchedFirms;
+            user.pagePermissions = user.pagePermissions;
+            user.userCompanies = user.userCompanies;
 
             dispatch({
               type: INITIALIZE,
@@ -153,14 +130,45 @@ function AuthProvider({ children }: { children: ReactNode }) {
       });
 
       const data: AuthResponse = response.data;
-      const accessToken = data?.accessToken;
-      const user = data?.userDetails;
+
+      const accessToken = data.accessToken;
+      const user = data.userDetails;
 
       if (!accessToken || user === null) {
         throw new Error("No access token received from the server");
       }
 
-      user.firms = fetchedFirms;
+      setSession(accessToken);
+
+      dispatch({
+        type: SIGN_IN,
+        payload: {
+          user,
+        },
+      });
+      return { data };
+    } catch (error: any) {
+      return error;
+    }
+  };
+
+  //superadmin
+  const signInSA = async (username: string, password: string) => {
+    try {
+      const response = await axiosInstance.post(`${API_URL}/login-superadmin`, {
+        username,
+        password,
+      });
+
+      const data: AuthResponse = response.data;
+      console.log(data);
+      const accessToken = data.accessToken;
+      const user = data.userDetails;
+
+      if (!accessToken || user === null) {
+        throw new Error("No access token received from the server");
+      }
+
       setSession(accessToken);
 
       dispatch({
@@ -176,9 +184,21 @@ function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signOut = async () => {
-    setSession(null);
-    dispatch({ type: SIGN_OUT });
-    navigate("/");
+    console.log("logging out...");
+
+    try {
+      await axiosInstance.post(`${API_URL}/logout`);
+
+      dispatch({ type: SIGN_OUT });
+      navigate("/");
+      setSession(null);
+      if (localStorage.getItem("accessToken") != null) {
+        localStorage.removeItem("accessToken");
+        console.log("accessToken removed");
+      }
+    } catch (e) {
+      // ignore or log logout failure
+    }
   };
 
   const signUp = async (
@@ -190,7 +210,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
     companyCode: string,
     companyType: number,
     userNameWithoutCompanyCode: string
-  ) => {
+  ): Promise<void> => {
     const response = await axiosInstance.post(`${API_URL}/register`, {
       email,
       password,
@@ -200,15 +220,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
       companyCode,
       companyType,
       userNameWithoutCompanyCode,
-    });
-    const { accessToken, user } = response.data;
-
-    window.localStorage.setItem("accessToken", accessToken);
-    dispatch({
-      type: SIGN_UP,
-      payload: {
-        user,
-      },
     });
   };
 
@@ -222,6 +233,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
         signIn,
         signOut,
         signUp,
+        signInSA,
         resetPassword,
       }}
     >

@@ -19,10 +19,7 @@ const FirmSelection = ({ firms, show }: { firms: Firm[]; show: boolean }) => {
   }, [searchTerm, firms]);
 
   const handleFirmSelection = (firm: Firm) => {
-    //todo: make api call to check if user has access to the firm and if firm has active license
-
-    handleSelectedFirm(firm);
-    //on error return error message
+    handleSelectedFirm(firm, true);
   };
 
   return (

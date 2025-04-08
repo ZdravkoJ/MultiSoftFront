@@ -25,21 +25,23 @@ const Dashboard: React.FC<DashboardProps> = ({ children }) => {
   const { signIn, user, isInitialized } = useAuth();
   const { selectedFirm, handleSelectedFirm } = useFirm();
   const [firms, setFirms] = useState<Firm[]>([]);
-
   //
   useEffect(() => {
-    if (user) {
-      setFirms(user.firms);
+    if (user && !selectedFirm) {
+      setFirms(user.userCompanies);
+      console.log("user", user);
     }
   }, [user]);
 
-  useEffect(() => {
-    if (firms.length === 1 && !selectedFirm) {
-      handleSelectedFirm(firms[0]); // Auto-select firm if only one is available
-    }
-  }, [firms, selectedFirm]);
+  // useEffect(() => {
+  //   if (!selectedFirm) {
+  //     handleSelectedFirm(firms[0]); // Auto-select firm if only one is available
+  //     console.log("Auto-selected firm:", firms[0]);
+  //   }
+  // }, [firms, selectedFirm]);
 
-  if (!selectedFirm) {
+  if (user && !selectedFirm && user.username != "superadmin") {
+    console.log(selectedFirm);
     return <FirmSelection firms={firms} show={true} />;
   }
 

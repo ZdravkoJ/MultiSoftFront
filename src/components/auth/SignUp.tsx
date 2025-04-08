@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import { Alert, Button, Form, Row, Col, Modal } from "react-bootstrap";
+import MainModal from "../../pages/ui/MainModal";
 
 import useAuth from "../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
@@ -12,11 +13,17 @@ const SignUp = () => {
   const { signUp } = useAuth();
   const { t } = useTranslation();
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState(false);
+
   //array of companies to select from
-  const companies = [
-    { id: 1, name: "Company 1" },
-    { id: 2, name: "Company 2" },
-    { id: 3, name: "Company 3" },
+
+  const companyTypes = [
+    { id: 1, name: "Finance" },
+    { id: 2, name: "Retail" },
+    { id: 3, name: "Manufacturing" },
+    { id: 4, name: "Service" },
   ];
 
   return (
@@ -29,9 +36,8 @@ const SignUp = () => {
         submit: false,
         companyName: "",
         companyCode: "",
-        userNameWithoutCompanyCode: "TestUser",
-
-        companyType: 1,
+        userNameWithoutCompanyCode: "",
+        companyType: 0,
       }}
       validationSchema={Yup.object().shape({
         firstName: Yup.string()
@@ -57,22 +63,31 @@ const SignUp = () => {
           ),
         companyName: Yup.string().required("Required").max(100),
         companyCode: Yup.string().required("Required"),
+        companyType: Yup.number().required("Required"),
+        userNameWithoutCompanyCode: Yup.string().required("Required"),
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
-          signUp(
-            values.email,
-            values.password,
-            values.firstName,
-            values.lastName,
-            values.companyName,
-            values.companyCode,
-            values.companyType,
-            values.userNameWithoutCompanyCode
+          const fixedValues = {
+            ...values,
+            companyType: Number(values.companyType),
+          };
+          await signUp(
+            fixedValues.email,
+            fixedValues.password,
+            fixedValues.firstName,
+            fixedValues.lastName,
+            fixedValues.companyName,
+            fixedValues.companyCode,
+            fixedValues.companyType,
+            fixedValues.userNameWithoutCompanyCode
           );
+
+          setMessage("success");
+          setError(false);
+          setIsOpen(true);
         } catch (error: any) {
           const message = error.message || "Something went wrong";
-
           setStatus({ success: false });
           setErrors({ submit: message });
           setSubmitting(false);
@@ -204,19 +219,40 @@ const SignUp = () => {
                 name="userNameWithoutCompanyCode"
                 placeholder="userNameWithoutCompanyCode"
                 value={values.userNameWithoutCompanyCode}
-                // isInvalid={Boolean(
-                //   touched.userNameWithoutCompanyCode &&
-                //     errors.userNameWithoutCompanyCode
-                // )}
+                isInvalid={Boolean(
+                  touched.userNameWithoutCompanyCode &&
+                    errors.userNameWithoutCompanyCode
+                )}
                 onBlur={handleBlur}
                 onChange={handleChange}
               />
-              {!!touched.userNameWithoutCompanyCode && (
+              {!!touched.companyCode && (
                 <Form.Control.Feedback type="invalid">
-                  {errors.userNameWithoutCompanyCode}
+                  {errors.companyCode}
                 </Form.Control.Feedback>
               )}
             </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>{t("CompanyType")}</Form.Label>
+              <Form.Control
+                as="select"
+                name="companyType"
+                value={values.companyType}
+                onChange={handleChange}
+              >
+                {companyTypes.map((company) => (
+                  <option key={company.id} value={company.id}>
+                    {company.name}
+                  </option>
+                ))}
+              </Form.Control>
+              {!!touched.companyType && (
+                <Form.Control.Feedback type="invalid">
+                  {errors.companyType}
+                </Form.Control.Feedback>
+              )}
+            </Form.Group>
+
             <div className="d-grid gap-2 mt-3">
               <Button
                 type="submit"
@@ -228,6 +264,13 @@ const SignUp = () => {
               </Button>
             </div>
           </Form>
+          <MainModal
+            isOpen={isOpen}
+            message={message}
+            error={error}
+            show={() => setIsOpen(true)}
+            close={() => setIsOpen(false)}
+          />
         </React.Fragment>
       )}
     </Formik>

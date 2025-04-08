@@ -17,7 +17,8 @@ export type AuthUser = {
   email: string;
   username: string;
   pagePermissions: string[];
-  firms: Firm[];
+  userCompanies: Firm[];
+  lastUsedCompanyid: number;
 } | null;
 
 //export type AuthUser = null | Record<string, any>;
@@ -25,6 +26,21 @@ export type AuthUser = {
 export type AuthResponse = {
   accessToken: string;
   userDetails: AuthUser;
+};
+
+export type PagePermission = {
+  userId: number;
+  companyId: number;
+};
+
+export type RegisterResponse = {
+  accessToken: string;
+  companyId: number;
+  userId: number;
+};
+
+export type SignInProps = {
+  isSuperAdmin: boolean;
 };
 
 export type AuthState = {
@@ -38,6 +54,7 @@ export type JWTContextType = {
   user: AuthUser;
   method: "jwt";
   signIn: (username: string, password: string) => Promise<any>;
+  signInSA: (username: string, password: string) => Promise<any>;
   signOut: () => Promise<void>;
   signUp: (
     email: string,
