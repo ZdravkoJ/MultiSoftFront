@@ -104,7 +104,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
             dispatch({
               type: INITIALIZE,
-              payload: { isAuthenticated: !!accessToken && !!user, user },
+              payload: { isAuthenticated: true, user },
             });
           }
         }
@@ -161,7 +161,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
       });
 
       const data: AuthResponse = response.data;
-      console.log(data);
       const accessToken = data.accessToken;
       const user = data.userDetails;
 
@@ -190,14 +189,13 @@ function AuthProvider({ children }: { children: ReactNode }) {
       await axiosInstance.post(`${API_URL}/logout`);
 
       dispatch({ type: SIGN_OUT });
-      navigate("/");
-      setSession(null);
-      if (localStorage.getItem("accessToken") != null) {
-        localStorage.removeItem("accessToken");
-        console.log("accessToken removed");
-      }
     } catch (e) {
       // ignore or log logout failure
+    } finally {
+      navigate("/");
+      setSession(null);
+      localStorage.clear();
+      dispatch({ type: SIGN_OUT });
     }
   };
 

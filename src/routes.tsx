@@ -11,6 +11,7 @@ import LandingLayout from "./layouts/Landing";
 // Guards
 import AuthGuard from "./components/guards/AuthGuard";
 import AdminPanel from "./pages/apps/AdminPanel";
+import GuestGuard from "./components/guards/GuestGuard";
 
 // Presentation & Landing
 const Presentation = lazy(() => import("./pages/landing/Presentation"));
@@ -127,16 +128,20 @@ const Changelog = lazy(() => import("./pages/docs/Changelog"));
 
 // Protected routes
 const ProtectedPage = lazy(() => import("./pages/protected/ProtectedPage"));
-const Home = lazy(() => import("./pages/landing/Landing/Home"));
+//const Home = lazy(() => import("./pages/landing/Landing/Home"));
 
 const routes = [
   {
     path: "/",
-    element: <LandingLayout />,
+    element: (
+      <GuestGuard>
+        <DashboardLayout />
+      </GuestGuard>
+    ),
     children: [
       {
         path: "",
-        element: <Home />,
+        element: <SignIn />,
       },
     ],
   },
@@ -165,6 +170,10 @@ const routes = [
       {
         path: "default",
         element: <Default />,
+      },
+      {
+        path: "admin-panel",
+        element: <AdminPanel />,
       },
       {
         path: "control-panel",

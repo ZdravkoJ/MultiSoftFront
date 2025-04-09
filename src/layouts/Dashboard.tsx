@@ -40,7 +40,7 @@ const Dashboard: React.FC<DashboardProps> = ({ children }) => {
   //   }
   // }, [firms, selectedFirm]);
 
-  if (user && !selectedFirm && user.username != "superadmin") {
+  if (user && !selectedFirm && user.userType != 1) {
     console.log(selectedFirm);
     return <FirmSelection firms={firms} show={true} />;
   }

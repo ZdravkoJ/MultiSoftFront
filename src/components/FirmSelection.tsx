@@ -22,9 +22,17 @@ const FirmSelection = ({ firms, show }: { firms: Firm[]; show: boolean }) => {
     handleSelectedFirm(firm, true);
   };
 
+  // const handleModalClose = () => {
+  //   show = false;
+  // };
+
   return (
     <Modal size="lg" centered show={show} backdrop="static">
-      <Modal.Header>Select company</Modal.Header>
+      <Modal.Header>
+        <div>SelectCompany</div>
+        {/* <Button onClick={handleModalClose}>x</Button> */}
+      </Modal.Header>
+
       <Modal.Body className="text-center m-3">
         <input
           ref={searchInputRef}

@@ -12,7 +12,7 @@ const GuestGuard = ({ children }: GuestGuardType) => {
   const { isAuthenticated, isInitialized } = useAuth();
 
   if (isInitialized && isAuthenticated) {
-    return <Navigate to="/" />;
+    return <Navigate to="/dashboard/default" replace />;
   }
 
   return <React.Fragment>{children}</React.Fragment>;

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
   Badge,
@@ -12,22 +12,34 @@ import {
 
 import { useTranslation } from "react-i18next";
 import Navbar from "../../../components/navbar/Navbar";
-import AuthContext from "../../../contexts/JWTContext";
 import useDashboardItems from "../../../components/sidebar/useDashboardItems";
 import { Link } from "react-router-dom";
 import Footer from "../../../components/Footer";
+import FirmSelection from "../../../components/FirmSelection";
+import useAuth from "../../../hooks/useAuth";
+import { useFirm } from "../../../hooks/useFirm";
+import { Firm } from "../../../types/firm";
 
 const Home = () => {
   const { t } = useTranslation();
 
-  const authContext = useContext(AuthContext);
   const items = useDashboardItems();
 
-  if (!authContext) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
+  const { signIn, user, isInitialized } = useAuth();
+  const { selectedFirm, handleSelectedFirm } = useFirm();
+  const [firms, setFirms] = useState<Firm[]>([]);
+  //
+  useEffect(() => {
+    if (user && !selectedFirm) {
+      setFirms(user.userCompanies);
+      console.log("user", user);
+    }
+  }, [user]);
 
-  const { isAuthenticated, user } = authContext;
+  if (user && !selectedFirm && user.userType !== 1) {
+    console.log(selectedFirm);
+    return <FirmSelection firms={firms} show={true} />;
+  }
 
   return (
     <>
@@ -36,7 +48,7 @@ const Home = () => {
         <Container className="landing-intro-content">
           <Row className="align-items-center">
             <Col lg={5} className="mx-auto">
-              {!isAuthenticated && !user && (
+              {!user && (
                 <div>
                   <Link to="/auth/sign-in">{t("SignIn")}</Link>
                   <br></br>

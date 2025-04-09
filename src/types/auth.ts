@@ -12,13 +12,15 @@ export type ActionMap<M extends { [index: string]: any }> = {
 };
 
 export type AuthUser = {
-  id: string;
-  fullanme: string;
+  id: number;
+  fullName: string;
   email: string;
   username: string;
   pagePermissions: string[];
   userCompanies: Firm[];
   lastUsedCompanyid: number;
+  userType: number;
+  phoneNumber: string | null;
 } | null;
 
 //export type AuthUser = null | Record<string, any>;

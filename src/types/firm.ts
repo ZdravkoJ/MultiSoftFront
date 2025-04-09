@@ -2,6 +2,7 @@ export interface Firm {
   id: number;
   name: string;
   license: License | null;
+  type: number;
 }
 
 export interface License {
@@ -19,4 +20,12 @@ export enum LicenseType {
 export interface FirmContextType {
   selectedFirm: Firm | null;
   handleSelectedFirm: (firm: Firm | null, apiCall?: boolean) => void;
+}
+
+export interface RegistrationRequest {
+  id: number;
+  companyName: string;
+  userFullName: string;
+  email: string;
+  timestamp: string;
 }

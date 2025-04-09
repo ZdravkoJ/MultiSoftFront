@@ -41,7 +41,7 @@ const useDashboardItems = (): {
           icon: Users,
         },
         {
-          href: "/dashboard/super-admin",
+          href: "/dashboard/admin-panel",
           title: t("SuperAdmin"),
           icon: Heart,
         },

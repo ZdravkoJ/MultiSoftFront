@@ -28,6 +28,8 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    const currentPath = window.location.pathname + window.location.search;
+    localStorage.setItem("lastPath", currentPath);
     if (originalRequest.url === "auth/refresh-token") {
       // If the refresh token request fails, log out the user
       localStorage.removeItem("accessToken");

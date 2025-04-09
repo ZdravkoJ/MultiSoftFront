@@ -15,27 +15,28 @@ const SignInPage = () => {
   return (
     <React.Fragment>
       <Helmet title="Sign In" />
-      <Container>
-        <Navbar></Navbar>
-        <SignIn isSuperAdmin={isSuperAdmin} />
-        <div className="form-check mt-3">
-          <input
-            type="checkbox"
-            id="isSuperAdmin"
-            className="form-check-input"
-            checked={isSuperAdmin}
-            onChange={() => setIsSuperAdmin(!isSuperAdmin)}
-          />
-          <label className="form-check-label" htmlFor="isSuperAdmin">
-            {t("SignInAsSuperAdmin")}
-          </label>
-        </div>
-        <div className="mt-3">
-          {t("DontHaveAccount")} <Link to="/auth/sign-up">{t("SignUp")}</Link>
-        </div>
-        <div className="mt-3">
-          {t("ForgotPassword")}
-          <Link to="/auth/reset-password">{t("Reset")}</Link>
+      <Container className="d-flex justify-content-center">
+        <div className="w-100" style={{ maxWidth: "400px" }}>
+          <SignIn isSuperAdmin={isSuperAdmin} />
+          <div className="form-check mt-3">
+            <input
+              type="checkbox"
+              id="isSuperAdmin"
+              className="form-check-input"
+              checked={isSuperAdmin}
+              onChange={() => setIsSuperAdmin(!isSuperAdmin)}
+            />
+            <label className="form-check-label" htmlFor="isSuperAdmin">
+              {t("SignInAsSuperAdmin")}
+            </label>
+          </div>
+          <div className="mt-3">
+            {t("DontHaveAccount")} <Link to="/auth/sign-up">{t("SignUp")}</Link>
+          </div>
+          <div className="mt-3">
+            {t("ForgotPassword")}
+            <Link to="/auth/reset-password">{t("Reset")}</Link>
+          </div>
         </div>
       </Container>
     </React.Fragment>

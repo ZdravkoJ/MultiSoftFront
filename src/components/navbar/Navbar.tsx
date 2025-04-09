@@ -50,7 +50,7 @@ const NavbarComponent = () => {
   return (
     <React.Fragment>
       <Navbar variant="light" expand className="navbar-bg">
-        {user && user.userCompanies.length > 0 && (
+        {user && (
           <>
             <span
               className="sidebar-toggle d-flex"
@@ -71,14 +71,21 @@ const NavbarComponent = () => {
                 </Button>
               </InputGroup>
             </Form>
-            <Form className="d-none d-sm-inline-block">
+            <Form className="d-none d-sm-inline-block" id="firmSwitch">
               <Form.Control
                 as="select"
                 name="companyType"
                 placeholder="Select Company"
-                onClick={() => {
-                  handleSelectedFirm;
-                  console.log("selectedFirm", selectedFirm);
+                value={selectedFirm?.id ?? "None"}
+                onChange={(e) => {
+                  const selectedFirmId = Number(e.target.value);
+                  const firm = user.userCompanies.find(
+                    (c) => c.id === selectedFirmId
+                  );
+                  if (firm) {
+                    handleSelectedFirm(firm, true);
+                    console.log("selectedFirm", firm);
+                  }
                 }}
               >
                 {user.userCompanies.map((company) => (

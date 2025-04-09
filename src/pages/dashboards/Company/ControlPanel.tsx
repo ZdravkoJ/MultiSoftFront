@@ -8,7 +8,7 @@ import axiosInstance from "../../../utils/axios";
 
 const ControlPanel = () => {
   const [show, setShow] = useState(false);
-  const [companies, setCompanies] = useState<
+  const [roles, setRoles] = useState<
     { id: number; name: string; description: string }[]
   >([]);
 
@@ -19,7 +19,7 @@ const ControlPanel = () => {
       try {
         const response = await axiosInstance.get("/auth/roles");
         console.log(response);
-        setCompanies(response.data);
+        setRoles(response.data);
       } catch (error) {
         console.error("Failed to fetch companies", error);
       } finally {
@@ -34,7 +34,7 @@ const ControlPanel = () => {
       <Helmet title="Company Control Panel" />
       <Container fluid className="p-0">
         <Row>
-          <Col lg={12} className="d-flex">
+          <Col lg={12}>
             <h1>{t("ControlPanel")}</h1>
             <Form>
               <Form.Group controlId="companySelect">
@@ -43,9 +43,9 @@ const ControlPanel = () => {
                   <option value="" disabled>
                     {t("Choose a company")}
                   </option>
-                  {companies.map((company) => (
-                    <option key={company.id} value={company.id}>
-                      {company.name}-{company.description}
+                  {roles.map((role) => (
+                    <option key={role.id} value={role.id}>
+                      {role.name}-{role.description}
                     </option>
                   ))}
                 </Form.Select>
