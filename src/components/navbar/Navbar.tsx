@@ -10,6 +10,7 @@ import {
   MessageCircle,
   UserPlus,
   Search,
+  Warehouse,
 } from "lucide-react";
 
 import useSidebar from "../../hooks/useSidebar";
@@ -60,7 +61,7 @@ const NavbarComponent = () => {
             >
               <i className="hamburger align-self-center" />
             </span>
-            <Form className="d-none d-sm-inline-block">
+            <Form className="d-none d-sm-inline-block me-5">
               <InputGroup className="input-group-navbar">
                 <Form.Control
                   placeholder={t("Search") as string}
@@ -71,29 +72,32 @@ const NavbarComponent = () => {
                 </Button>
               </InputGroup>
             </Form>
-            <Form className="d-none d-sm-inline-block" id="firmSwitch">
-              <Form.Control
-                as="select"
-                name="companyType"
-                placeholder="Select Company"
-                value={selectedFirm?.id ?? "None"}
-                onChange={(e) => {
-                  const selectedFirmId = Number(e.target.value);
-                  const firm = user.userCompanies.find(
-                    (c) => c.id === selectedFirmId
-                  );
-                  if (firm) {
-                    handleSelectedFirm(firm, true);
-                    console.log("selectedFirm", firm);
-                  }
-                }}
-              >
-                {user.userCompanies.map((company) => (
-                  <option key={company.id} value={company.id}>
-                    {company.name}
-                  </option>
-                ))}
-              </Form.Control>
+            <Warehouse className="lucide" />
+            <Form className="" id="firmSwitch">
+              <InputGroup className="input-group-navbar">
+                <Form.Control
+                  as="select"
+                  name="companyType"
+                  placeholder="Select Company"
+                  value={selectedFirm?.id ?? "None"}
+                  onChange={(e) => {
+                    const selectedFirmId = Number(e.target.value);
+                    const firm = user.userCompanies.find(
+                      (c) => c.id === selectedFirmId
+                    );
+                    if (firm) {
+                      handleSelectedFirm(firm, true);
+                      console.log("selectedFirm", firm);
+                    }
+                  }}
+                >
+                  {user.userCompanies.map((company) => (
+                    <option key={company.id} value={company.id}>
+                      {company.name}
+                    </option>
+                  ))}
+                </Form.Control>
+              </InputGroup>
             </Form>
           </>
         )}

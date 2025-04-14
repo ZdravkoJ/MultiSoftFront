@@ -99,9 +99,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
           const userResponse = await axiosInstance.get(`${API_URL}/me`);
           let user: AuthUser = userResponse.data;
           if (user !== null) {
-            user.pagePermissions = user.pagePermissions;
-            user.userCompanies = user.userCompanies;
-
             dispatch({
               type: INITIALIZE,
               payload: { isAuthenticated: true, user },

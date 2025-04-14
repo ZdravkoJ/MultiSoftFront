@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
-import {
-  Button,
-  Tab,
-  Table,
-  Form as FormBootstrap,
-  FormGroup,
-} from "react-bootstrap";
+import { Button, Tab, Table, Form as FormBootstrap } from "react-bootstrap";
 import axiosInstance from "../../utils/axios";
 import * as Yup from "yup";
 import { AuthUser } from "../../types/auth";
@@ -55,10 +49,10 @@ const Consultant = () => {
     fetchCompanies();
   }, []);
 
-  const handleFirmChange = (consultantId: number, firmId: string) => {
+  const handleFirmChange = (consultantId: number, firmId: number) => {
     setSelectedFirmIds((prev) => ({
       ...prev,
-      [consultantId]: parseInt(firmId), // Convert firmId to number
+      [consultantId]: firmId, // Convert firmId to number
     }));
     console.log(selectedFirmIds);
   };
@@ -208,7 +202,7 @@ const Consultant = () => {
                           value={selectedFirmIds[consultant!.id]}
                           onChange={(e) =>
                             handleFirmChange(
-                              consultant?.id,
+                              consultant!.id,
                               parseInt(e.target.value)
                             )
                           }

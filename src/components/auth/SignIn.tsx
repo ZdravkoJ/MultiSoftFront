@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { Formik } from "formik";
 import { Alert, Button, Form, Row, Col } from "react-bootstrap";
 
 import useAuth from "../../hooks/useAuth";

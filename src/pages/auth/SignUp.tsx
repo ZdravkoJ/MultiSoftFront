@@ -14,7 +14,7 @@ const SignUpPage = () => {
       <SignUp />
       <div className="text-center mt-3">
         {t("HaveAccount")}
-        <Link to="/auth/sign-in">{t("SignIn")}</Link>
+        <Link to="/">{t("SignIn")}</Link>
       </div>
     </React.Fragment>
   );

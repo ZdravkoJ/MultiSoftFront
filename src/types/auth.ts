@@ -21,6 +21,7 @@ export type AuthUser = {
   lastUsedCompanyid: number;
   userType: number;
   phoneNumber: string | null;
+  role: string;
 } | null;
 
 //export type AuthUser = null | Record<string, any>;
@@ -69,4 +70,10 @@ export type JWTContextType = {
     userNameWithoutCompanyCode: string
   ) => Promise<void>;
   resetPassword: (email: string) => void;
+};
+
+export type UserRole = {
+  id: number;
+  name: string;
+  description: string;
 };

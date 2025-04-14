@@ -20,6 +20,7 @@ import {
   Trello,
   ShoppingBag,
   LayoutTemplate,
+  User2,
 } from "lucide-react";
 
 const useDashboardItems = (): {
@@ -36,20 +37,21 @@ const useDashboardItems = (): {
       badge: "",
       children: [
         {
+          href: "/dashboard/default",
+          title: t("Pocetna"),
+          icon: Heart,
+        },
+        {
           href: "/dashboard/control-panel",
           title: t("ControlPanel"),
-          icon: Users,
+          icon: User2,
         },
         {
           href: "/dashboard/admin-panel",
           title: t("SuperAdmin"),
-          icon: Heart,
+          icon: Users,
         },
-        {
-          href: "/dashboard/default",
-          title: t("AppSettings"),
-          icon: Heart,
-        },
+
         {
           href: "/dashboard/analytics",
           title: t("Analytics"),
