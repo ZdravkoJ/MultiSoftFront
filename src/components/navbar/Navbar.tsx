@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Button, Navbar, Nav, Form, InputGroup } from "react-bootstrap";
 
@@ -47,6 +47,14 @@ const NavbarComponent = () => {
   const { isOpen, setIsOpen } = useSidebar();
   const { signIn, user } = useAuth();
   const { selectedFirm, handleSelectedFirm } = useFirm();
+  const [showFirmWarning, setShowFirmWarning] = useState(false);
+
+  useEffect(() => {
+    if (user?.userType === 1 && !selectedFirm) {
+      setShowFirmWarning(true);
+    }
+  }, [user, selectedFirm]);
+  console.log(selectedFirm);
 
   return (
     <React.Fragment>
@@ -80,6 +88,7 @@ const NavbarComponent = () => {
                   name="companyType"
                   placeholder="Select Company"
                   value={selectedFirm?.id ?? "None"}
+                  className={showFirmWarning ? "is-invalid" : ""}
                   onChange={(e) => {
                     const selectedFirmId = Number(e.target.value);
                     const firm = user.userCompanies.find(
@@ -87,10 +96,13 @@ const NavbarComponent = () => {
                     );
                     if (firm) {
                       handleSelectedFirm(firm, true);
-                      console.log("selectedFirm", firm);
+                      setShowFirmWarning(false);
                     }
                   }}
                 >
+                  <option value="" disabled>
+                    -- Select Firm --
+                  </option>
                   {user.userCompanies.map((company) => (
                     <option key={company.id} value={company.id}>
                       {company.name}
@@ -99,6 +111,11 @@ const NavbarComponent = () => {
                 </Form.Control>
               </InputGroup>
             </Form>
+            {showFirmWarning && (
+              <div className="invalid-feedback d-block">
+                Please select a firm to proceed.
+              </div>
+            )}
           </>
         )}
 

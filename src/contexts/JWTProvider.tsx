@@ -145,7 +145,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
       });
       return { data };
     } catch (error: any) {
-      return error;
+      throw error;
     }
   };
 
@@ -175,7 +175,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
       });
       return { data };
     } catch (error: any) {
-      return error;
+      throw error;
     }
   };
 

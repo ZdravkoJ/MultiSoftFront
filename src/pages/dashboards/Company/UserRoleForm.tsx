@@ -6,7 +6,6 @@ import { AuthUser } from "../../../types/auth";
 import { Firm } from "../../../types/firm";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
-import SimpleTestForm from "./SimpleTestForm";
 
 const UserRoleForm = () => {
   const [showForm, setShowForm] = useState(false);

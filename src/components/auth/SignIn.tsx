@@ -46,25 +46,30 @@ const SignIn = ({ isSuperAdmin = false }: SignInProps) => {
         ? await signInSA(username, password)
         : await signIn(username, password);
 
-      console.log(response);
+      const data = response.data;
 
       if (
-        response.data.userDetails != null &&
-        response.data.accessToken != null &&
-        response.data.userType !== 1
-      )
-        navigate("/dashboard");
-      else if (
-        response.data.userDetails != null &&
-        response.data.accessToken != null &&
-        response.data.userType !== 1
+        data.userDetails != null &&
+        data.accessToken != null &&
+        data.userType !== 1
       ) {
-        console.log("not superadmin");
+        navigate("/dashboard");
       } else {
         showErrorModal("Invalid username or password.");
       }
     } catch (error: any) {
-      showErrorModal("Unexpected error.");
+      if (error.response) {
+        const message =
+          error.response.data?.reason ||
+          error.response.data?.errors?.[0]?.reason ||
+          "Invalid username or password.";
+        showErrorModal(message);
+      } else if (error.request) {
+        showErrorModal("No response from server.");
+      } else {
+        console.error(error);
+        showErrorModal("Unexpected error.");
+      }
     } finally {
       setSubmitting(false);
     }
