@@ -25,7 +25,7 @@ const SIGN_UP = "SIGN_UP";
 
 const API_URL =
   process.env.NODE_ENV === "production"
-    ? "https://localhost:5001/auth"
+    ? "https://multisoftsrb-api-dev.azurewebsites.net/"
     : "https://localhost:5001/auth";
 
 type AuthActionTypes = {
