@@ -11,6 +11,11 @@ export type ActionMap<M extends { [index: string]: any }> = {
       };
 };
 
+export const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://multisoftsrb-api-dev.azurewebsites.net"
+    : "https://localhost:5001";
+
 export type AuthUser = {
   id: number;
   fullName: string;
