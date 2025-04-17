@@ -17,16 +17,14 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axios";
 import { AxiosResponse } from "../types/axiosResponse";
 import { Firm, LicenseType } from "../types/firm";
+import {API_URL} from "../../src/types/auth"
 
 const INITIALIZE = "INITIALIZE";
 const SIGN_IN = "SIGN_IN";
 const SIGN_OUT = "SIGN_OUT";
 const SIGN_UP = "SIGN_UP";
 
-const API_URL =
-  process.env.NODE_ENV === "production"
-    ? "https://multisoftsrb-api-dev.azurewebsites.net/auth"
-    : "https://localhost:5001/auth";
+
 
 type AuthActionTypes = {
   [INITIALIZE]: {
@@ -96,7 +94,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
         if (accessToken) {
           setSession(accessToken);
 
-          const userResponse = await axiosInstance.get(`${API_URL}/me`);
+          const userResponse = await axiosInstance.get(`${API_URL}/aut/me`);
           let user: AuthUser = userResponse.data;
           if (user !== null) {
             dispatch({
@@ -121,7 +119,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
   const signIn = async (username: string, password: string) => {
     try {
-      const response = await axiosInstance.post(`${API_URL}/login`, {
+      const response = await axiosInstance.post(`${API_URL}/auth/login`, {
         username,
         password,
       });
@@ -152,7 +150,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
   //superadmin
   const signInSA = async (username: string, password: string) => {
     try {
-      const response = await axiosInstance.post(`${API_URL}/login-superadmin`, {
+      const response = await axiosInstance.post(`${API_URL}/auth/login-superadmin`, {
         username,
         password,
       });
@@ -183,7 +181,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
     console.log("logging out...");
 
     try {
-      await axiosInstance.post(`${API_URL}/logout`);
+      await axiosInstance.post(`${API_URL}/auth/logout`);
 
       dispatch({ type: SIGN_OUT });
     } catch (e) {
@@ -206,7 +204,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
     companyType: number,
     userNameWithoutCompanyCode: string
   ): Promise<void> => {
-    const response = await axiosInstance.post(`${API_URL}/register`, {
+    const response = await axiosInstance.post(`${API_URL}/auth/register`, {
       email,
       password,
       firstName,
